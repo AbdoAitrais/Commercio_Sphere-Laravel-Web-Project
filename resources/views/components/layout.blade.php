@@ -52,93 +52,7 @@
 
 <div id="app">
 
-<nav id="navbar-main" class="navbar is-fixed-top z-0">
-  {{-- <div class="navbar-brand">
-    <a class="navbar-item mobile-aside-button">
-      <span class="icon"><i class="fa fa-forwardburger fa-24px"></i></span>
-    </a>
-    <div class="navbar-item">
-      <div class="control"><input name="search" placeholder="Search everywhere..." class="input"></div>
-    </div>
-  </div> --}}
-  <div class="navbar-brand is-right">
-    <a class="navbar-item --jb-navbar-menu-toggle" data-target="navbar-menu">
-      <span class="icon"><i class="fa fa-dots-vertical fa-24px"></i></span>
-    </a>
-  </div>
-  <div class="navbar-menu" id="navbar-menu">
-    <div class="navbar-end">
-      <div class="navbar-item dropdown has-divider">
-        <a class="navbar-link">
-          <span class="icon"><i class="fa fa-menu"></i></span>
-          <span>Sample Menu</span>
-          <span class="icon">
-            <i class="fa fa-chevron-down"></i>
-          </span>
-        </a>
-        <div class="navbar-dropdown">
-          <a href="https://themewagon.github.io/admin-one/profile.html" class="navbar-item">
-            <span class="icon"><i class="fa fa-user"></i></span>
-            <span>My Profile</span>
-          </a>
-          <a class="navbar-item">
-            <span class="icon"><i class="fa fa-gear"></i></span>
-            <span>Settings</span>
-          </a>
-          <a class="navbar-item">
-            <span class="icon"><i class="fa fa-message"></i></span>
-            <span>Messages</span>
-          </a>
-          <hr class="navbar-divider">
-          <a class="navbar-item">
-            <span class="icon"><i class="fa-solid fa-arrow-right-to-bracket"></i></span>
-            <span>Log Out</span>
-          </a>
-        </div>
-      </div>
-      <div class="navbar-item dropdown has-divider has-user-avatar">
-        <a class="navbar-link">
-          <div class="user-avatar">
-            <img src="{{asset('images/initials_003.svg')}}" alt="John Doe" class="rounded-full">
-          </div>
-          <div class="is-user-name"><span>John Doe</span></div>
-          <span class="icon"><i class="fa fa-chevron-down"></i></span>
-        </a>
-        <div class="navbar-dropdown">
-          <a href="https://themewagon.github.io/admin-one/profile.html" class="navbar-item">
-            <span class="icon"><i class="fa fa-user"></i></span>
-            <span>My Profile</span>
-          </a>
-          <a class="navbar-item">
-            <span class="icon"><i class="fa fa-gear"></i></span>
-            <span>Settings</span>
-          </a>
-          <a class="navbar-item">
-            <span class="icon"><i class="fa fa-message"></i></span>
-            <span>Messages</span>
-          </a>
-          <hr class="navbar-divider">
-          <a class="navbar-item">
-            <span class="icon"><i class="fa-solid fa-arrow-right-to-bracket"></i></span>
-            <span>Log Out</span>
-          </a>
-        </div>
-      </div>
-      <a href="https://justboil.me/tailwind-admin-templates" class="navbar-item has-divider desktop-icon-only">
-        <span class="icon"><i class="fa fa-circle-info"></i></span>
-        <span>About</span>
-      </a>
-      <a href="https://github.com/justboil/admin-one-tailwind" class="navbar-item has-divider desktop-icon-only">
-        <span class="icon"><i class="fa-brands fa-github"></i></span>
-        <span>GitHub</span>
-      </a>
-      <a title="Log out" class="navbar-item desktop-icon-only">
-        <span class="icon"><i class="fa-solid fa-arrow-right-to-bracket"></i></span>
-        <span>Log out</span>
-      </a>
-    </div>
-  </div>
-</nav>
+
 
 
 
@@ -151,27 +65,13 @@
     </div>
   </section> --}}
 
-<x-aside/>
+
 
     {{$slot}}
 
-<footer class="footer">
-  <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
-    <div class="flex items-center justify-start space-x-3">
-      <div>
-        © 2021, JustBoil.me
-      </div>
-      <div>
-        <p>Distributed By: <a href="https://themewagon.com/" target="_blank">ThemeWagon</a></p>
-      </div>
-      <a href="https://github.com/justboil/admin-one-tailwind" style="height: 20px">
-        <img src="{{asset('images/admin-one-tailwind.svg')}}">
-      </a>
-    </div>
-  </div>
-</footer>   
+  
 
-<x-flash-message/>
+
 
 </div>
 
@@ -190,7 +90,7 @@
     n.queue=[];t=b.createElement(e);t.async=!0;
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
+    {{asset('scripts/fbevents.js')}});
   fbq('init', '658339141622648');
   fbq('track', 'PageView');
 </script>

@@ -57,4 +57,41 @@ class ClientController extends Controller
 
         return back()->with('message', 'Client updated successfully!');
     }
+
+    // Delete the client
+    public function destroy(Client $client) {
+        $client->is_active = false;
+        $client->save();
+        return back()->with('message', 'Client deleted successfully!');
+    }
+
+    // Show the create form
+    public function create() {
+        return view('clients.create');
+    }
+
+    // Store the client
+    public function store(Request $request) {
+        $formFields = $request->validate([
+            'nom' => 'required',
+            'prenom' => 'required',
+            'ICE' => ['required'],
+            'IF' => ['required'],
+            'adresse' => 'required',
+            'telephone' => 'required',
+            'email' => ['required', 'email'],
+            'ville' => 'required',
+            'pays' => 'required',
+            'code_postal' => 'required'
+        ]);
+
+        try {
+            Client::create($formFields);
+        } catch (\Throwable $e) {
+            // handle the error here, for example:
+            dd($e->getMessage());
+        }
+
+        return redirect('/clients')->with('message', 'Client created successfully!');
+    }
 }

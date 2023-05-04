@@ -48,7 +48,7 @@
         </a>
         <ul>
           <li>
-            <a href="/clients">
+            <a href="{{route('clients.index')}}">
               <span>Clients</span>
             </a>
           </li>

@@ -22,18 +22,22 @@ class Client extends Model
     ];
 
     public function scopeFilter($query, array $filters) {
-        if($filters['search'] ?? false) {
-            $query->where('nom', 'like', '%' . request('search') . '%')
-                ->orWhere('prenom', 'like', '%' . request('search') . '%')
-                ->orWhere('IF', 'like', '%' . request('search') . '%')
-                ->orWhere('ICE', 'like', '%' . request('search') . '%')
-                ->orWhere('email', 'like', '%' . request('search') . '%')
-                ->orWhere('telephone', 'like', '%' . request('search') . '%')
-                ->orWhere('adresse', 'like', '%' . request('search') . '%')
-                ->orWhere('code_postal', 'like', '%' . request('search') . '%')
-                ->orWhere('ville', 'like', '%' . request('search') . '%')
-                ->orWhere('pays', 'like', '%' . request('search') . '%');
+        $query->where('is_active', true);
+        if ($filters['search'] ?? false) {
+            $query->where(function ($q) use ($filters) {
+                $q->where('nom', 'like', '%' . $filters['search'] . '%')
+                  ->orWhere('prenom', 'like', '%' . $filters['search'] . '%')
+                  ->orWhere('IF', 'like', '%' . $filters['search'] . '%')
+                  ->orWhere('ICE', 'like', '%' . $filters['search'] . '%')
+                  ->orWhere('email', 'like', '%' . $filters['search'] . '%')
+                  ->orWhere('telephone', 'like', '%' . $filters['search'] . '%')
+                  ->orWhere('adresse', 'like', '%' . $filters['search'] . '%')
+                  ->orWhere('code_postal', 'like', '%' . $filters['search'] . '%')
+                  ->orWhere('ville', 'like', '%' . $filters['search'] . '%')
+                  ->orWhere('pays', 'like', '%' . $filters['search'] . '%');
+            });
         }
     }
+    
 
 }

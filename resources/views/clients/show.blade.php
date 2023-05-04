@@ -1,8 +1,8 @@
 <x-layout>
     <div class="flex justify-between p-2 mr-5   ">
-        <a href="/clients" class="inline-block text-black ml-4 mb-4"><i class="fa-solid fa-arrow-left"></i> Back
+        <a href="{{route('clients.index')}}" class="inline-block text-black ml-4 mb-4"><i class="fa-solid fa-arrow-left"></i> Back
         </a>
-        <a href="/clients/{{$client->id}}/edit" class="text-red-500">
+        <a href="{{route('clients.edit',['client'=>$client->id])}}" class="text-red-500">
             <i class="fa-solid fa-pencil"></i> Edit
           </a>
     </div>
@@ -40,4 +40,8 @@
   
       
     </div>
+    <x-nav-bar/>
+    <x-footer/>
+    <x-flash-message/>
+    <x-aside/>
 </x-layout>

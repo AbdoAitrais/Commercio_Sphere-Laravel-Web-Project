@@ -1,13 +1,4 @@
 <x-layout>
-
-    <section class="is-hero-bar">
-        <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-          <h1 class="title">
-            Profile
-          </h1>
-          <button class="button light">Button</button>
-        </div>
-      </section>
       
     <section class="section main-section">
         <a href="{{route('clients.index')}}" class="inline-block text-black ml-4 mb-4"><i class="fa-solid fa-arrow-left"></i> Back
@@ -15,12 +6,11 @@
         <x-card>
             <x-card-header>
                 <span class="icon"><i class="fa fa-user-circle"></i></span>
-                Edit Profile
+                Ajouter Client
             </x-card-header>
             <x-card-content>
-                <form method="POST" action="{{route('clients.update',['client'=>$client->id])}}">
+                <form method="POST" action="{{route('clients.store')}}">
                     @csrf
-                    @method('PUT')
                     {{-- <div class="field">
                     <label class="label">Avatar</label>
                     <div class="field-body">
@@ -40,7 +30,7 @@
                         <div class="field-body">
                             <div class="field">
                                 <div class="control">
-                                    <input type="text" autocomplete="on" name="nom" value="{{$client->nom}}" class="input" required>
+                                    <input type="text" autocomplete="on" name="nom" value="{{old('nom')}}" class="input" required>
                                 </div>
                             </div>
                             @error('nom')
@@ -53,7 +43,7 @@
                         <div class="field-body">
                             <div class="field">
                                 <div class="control">
-                                    <input type="text" autocomplete="on" name="prenom" value="{{$client->prenom}}" class="input" required>
+                                    <input type="text" autocomplete="on" name="prenom" value="{{old('prenom')}}" class="input" required>
                                 </div>
                             </div>
                             @error('prenom')
@@ -66,7 +56,7 @@
                         <div class="field-body">
                             <div class="field">
                                 <div class="control">
-                                    <input type="text" autocomplete="on" name="ICE" value="{{$client->ICE}}" class="input" required>
+                                    <input type="text" autocomplete="on" name="ICE" value="{{old('ICE')}}" class="input" required>
                                 </div>
                             </div>
                             @error('ICE')
@@ -79,7 +69,7 @@
                         <div class="field-body">
                             <div class="field">
                                 <div class="control">
-                                    <input type="text" autocomplete="on" name="IF" value="{{$client->IF}}" class="input" required>
+                                    <input type="text" autocomplete="on" name="IF" value="{{old('IF')}}" class="input" required>
                                 </div>
                             </div>
                             @error('IF')
@@ -92,7 +82,7 @@
                         <div class="field-body">
                             <div class="field"> 
                                 <div class="control">
-                                    <input type="phone" autocomplete="on" name="telephone" value="{{$client->telephone}}" class="input" required>
+                                    <input type="phone" autocomplete="on" name="telephone" value="{{old('telephone')}}" class="input" required>
                                 </div>
                             </div>
                             @error('telephone')
@@ -105,7 +95,7 @@
                         <div class="field-body">
                             <div class="field">
                                 <div class="control">
-                                    <input type="email" autocomplete="on" name="email" value="{{$client->email}}" class="input" required>
+                                    <input type="email" autocomplete="on" name="email" value="{{old('email')}}" class="input" required>
                                 </div>
                             </div>
                             @error('email')
@@ -118,7 +108,7 @@
                         <div class="field-body">
                             <div class="field">
                                 <div class="control">
-                                    <input type="text" autocomplete="on" name="ville" value="{{$client->ville}}" class="input">
+                                    <input type="text" autocomplete="on" name="ville" value="{{old('ville')}}" class="input">
                                 </div>
                             </div>
                             @error('ville')
@@ -131,7 +121,7 @@
                         <div class="field-body">
                             <div class="field">
                                 <div class="control">
-                                    <input type="text" autocomplete="on" name="pays" value="{{$client->pays}}" class="input">
+                                    <input type="text" autocomplete="on" name="pays" value="{{old('pays')}}" class="input">
                                 </div>
                             </div>
                             @error('pays')
@@ -144,7 +134,7 @@
                         <div class="field-body">
                             <div class="field">
                                 <div class="control">
-                                    <input type="text" autocomplete="on" name="adresse" value="{{$client->adresse}}" class="input">
+                                    <input type="text" autocomplete="on" name="adresse" value="{{old('adresse')}}" class="input">
                                 </div>
                             </div>
                             @error('adresse')
@@ -157,7 +147,7 @@
                         <div class="field-body">
                             <div class="field">
                                 <div class="control">
-                                    <input type="text" autocomplete="on" name="code_postal" value="{{$client->code_postal}}" class="input">
+                                    <input type="text" autocomplete="on" name="code_postal" value="{{old('code_postal')}}" class="input">
                                 </div>
                             </div>
                             @error('code_postal')
@@ -174,6 +164,7 @@
                     </div>
                     </div>
                 </form>
+                
             </x-card-content>
         </x-card>
     </section>
