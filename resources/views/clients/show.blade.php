@@ -10,8 +10,9 @@
       <x-card class="p-10">
         <div class="flex flex-col items-center justify-center text-center">
   
-          <h3 class="text-2xl mb-2">
-            {{$client->nom}}
+          <h3 class="text-2xl mb-2 w-full flex justify-between">
+            <p class="font-bold">Nom Client :</p> 
+            <p class=" text-center">{{$client->nom}}</p>
           </h3>
           
           <div class="text-xl font-bold mb-4">{{$client->ville .  "-" . $client->pays}}</div>

@@ -13,12 +13,6 @@ class Client extends Model
         'prenom',
         'IF',
         'ICE',
-        'email',
-        'telephone',
-        'adresse',
-        'code_postal',
-        'ville',
-        'pays',
     ];
 
     public function scopeFilter($query, array $filters) {
@@ -28,16 +22,14 @@ class Client extends Model
                 $q->where('nom', 'like', '%' . $filters['search'] . '%')
                   ->orWhere('prenom', 'like', '%' . $filters['search'] . '%')
                   ->orWhere('IF', 'like', '%' . $filters['search'] . '%')
-                  ->orWhere('ICE', 'like', '%' . $filters['search'] . '%')
-                  ->orWhere('email', 'like', '%' . $filters['search'] . '%')
-                  ->orWhere('telephone', 'like', '%' . $filters['search'] . '%')
-                  ->orWhere('adresse', 'like', '%' . $filters['search'] . '%')
-                  ->orWhere('code_postal', 'like', '%' . $filters['search'] . '%')
-                  ->orWhere('ville', 'like', '%' . $filters['search'] . '%')
-                  ->orWhere('pays', 'like', '%' . $filters['search'] . '%');
+                  ->orWhere('ICE', 'like', '%' . $filters['search'] . '%');
             });
         }
     }
     
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
 
 }

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {
@@ -72,24 +74,62 @@ class ClientController extends Controller
 
     // Store the client
     public function store(Request $request) {
+
+        //dd($request->all() );
+
         $formFields = $request->validate([
             'nom' => 'required',
             'prenom' => 'required',
             'ICE' => ['required'],
             'IF' => ['required'],
+        ]);
+
+        $address1 = $request->validate([
+            'titre' => 'required',
             'adresse' => 'required',
             'telephone' => 'required',
             'email' => ['required', 'email'],
-            'ville' => 'required',
-            'pays' => 'required',
-            'code_postal' => 'required'
         ]);
 
+        
+
+        $address2 = $request->validate([
+            'email2' => 'email',
+        ]);
+
+
+
         try {
-            Client::create($formFields);
+            // $address1['client_id'] = Client::create($formFields)->id;
+            // begin the transaction
+            DB::beginTransaction();
+
+            $client = Client::create($formFields);
+            $address1['client_id'] = $client->id;
+            $address1['type'] = 'facturation';
+            Address::create($address1);
+            // if the second address exists then create it
+            if ($address2['email2'] ?? false) {
+                $address2['client_id'] = $address1['client_id'];
+                $address2['titre'] = $request->titre2;
+                $address2['adresse'] = $request->adresse2;
+                $address2['telephone'] = $request->telephone2;
+                $address2['email'] = $request->email2;
+                // delete email2 from the array
+                unset($address2['email2']);
+                $address2['type'] = 'livraison';
+
+                //dd($address1);
+                //dd($address2);
+                Address::create($address2);
+            }
+            // commit the transaction
+            DB::commit();
         } catch (\Throwable $e) {
             // handle the error here, for example:
             dd($e->getMessage());
+            // rollback the transaction
+            DB::rollback();
         }
 
         return redirect('/clients')->with('message', 'Client created successfully!');

@@ -19,14 +19,8 @@ class ClientFactory extends Factory
         return [
             'nom' => $this->faker->name,
             'prenom' => $this->faker->name,
-            'IF' => $this->faker->bankAccountNumber  ,
-            'ICE' => $this->faker->bankAccountNumber,
-            'email' => $this->faker->email(),
-            'telephone' => $this->faker->phoneNumber(),
-            'adresse' => $this->faker->address(),
-            'code_postal' => $this->faker->postcode(),
-            'ville' => $this->faker->city(),
-            'pays' => $this->faker->country(),
+            'IF' => $this->faker->bankAccountNumber,
+            'ICE' => $this->faker->bankAccountNumber,          
         ];
     }
 }
