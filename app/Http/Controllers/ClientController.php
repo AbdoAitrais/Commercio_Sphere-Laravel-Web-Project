@@ -35,27 +35,62 @@ class ClientController extends Controller
 
     // Update the client
     public function update(Request $request, Client $client) {
-        // dd($request->all());
+        //dd($request->all() );
+
         $formFields = $request->validate([
             'nom' => 'required',
             'prenom' => 'required',
             'ICE' => ['required'],
             'IF' => ['required'],
+        ]);
+
+        $address1 = $request->validate([
+            'titre' => 'required',
             'adresse' => 'required',
             'telephone' => 'required',
             'email' => ['required', 'email'],
-            'ville' => 'required',
-            'pays' => 'required',
-            'code_postal' => 'required'
         ]);
 
+        
+
+        $address2 = $request->validate([
+            'email2' => 'email',
+        ]);
+
+
+
         try {
-            // dd($formFields);
+            // $address1['client_id'] = Client::create($formFields)->id;
+            // begin the transaction
+            DB::beginTransaction();
             $client->update($formFields);
+            $addressFacturation = Address::where('client_id', $client->id)->where('type', 'facturation')->first();
+            //dd($addressFacturation);
+            $addressFacturation->update($address1);
+
+            // if the second address exists then create it
+            if ($address2['email2'] ?? false) {
+                
+                $addressLivraison = Address::where('client_id', $client->id)->where('type', 'livraison')->first();
+                $address2['titre'] = $request->titre2;
+                $address2['adresse'] = $request->adresse2;
+                $address2['telephone'] = $request->telephone2;
+                $address2['email'] = $request->email2;
+                $address2['type'] = 'livraison';
+                //dd($address2);
+                // delete email2 from the array
+                unset($address2['email2']);
+                $addressLivraison->update($address2);
+            }
+            // commit the transaction
+            DB::commit();
         } catch (\Throwable $e) {
             // handle the error here, for example:
             dd($e->getMessage());
+            // rollback the transaction
+            DB::rollback();
         }
+
 
         return back()->with('message', 'Client updated successfully!');
     }
