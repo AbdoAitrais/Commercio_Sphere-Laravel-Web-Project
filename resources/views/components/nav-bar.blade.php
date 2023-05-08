@@ -1,7 +1,12 @@
 <nav id="navbar-main" class="navbar is-fixed-top z-0">
-    <div class="navbar-brand is-right">
-      <a class="navbar-item --jb-navbar-menu-toggle" data-target="navbar-menu">
-        <span class="icon"><i class="fa fa-dots-vertical fa-24px"></i></span>
+  <div class="navbar-brand">
+    <a class="navbar-item mobile-aside-button cursor-pointer">
+      <span class="icon"><i class="fa fa-bars fa-24px"></i></span>
+    </a>
+  </div>
+    <div class="navbar-brand is-right mr-4">
+      <a class="navbar-item --jb-navbar-menu-toggle cursor-pointer" data-target="navbar-menu">
+        <span class="icon"><i class="fa-solid fa-grip"></i></span>
       </a>
     </div>
     <div class="navbar-menu" id="navbar-menu">

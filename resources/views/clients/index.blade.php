@@ -2,13 +2,13 @@
   <section class="is-hero-bar">
     <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
       <h1 class="title">
-        Tables
+        Clients
       </h1>
       <a href="{{route('clients.create')}}"><button class="button light">Ajouter</button></a>
     </div>
   </section>
   @include('partials._search')
-  <section class="section main-section">
+  <section class="section main-section mb-10">
     <div class="card has-table">
       <header class="card-header">
         <p class="card-header-title text-lg">

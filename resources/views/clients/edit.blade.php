@@ -1,14 +1,4 @@
 <x-layout>
-
-    <section class="is-hero-bar">
-        <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-          <h1 class="title">
-            Profile
-          </h1>
-          <button class="button light">Button</button>
-        </div>
-      </section>
-      
     <section class="section main-section mb-5">
         <a href="{{route('clients.index')}}" class="inline-block text-black ml-4 mb-4"><i class="fa-solid fa-arrow-left"></i> Back
         </a>
