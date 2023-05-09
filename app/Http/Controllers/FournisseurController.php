@@ -3,39 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
-use App\Models\Client;
+use App\Models\Fournisseur;
 use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ClientController extends Controller
+class FournisseurController extends Controller
 {
-    // Show all clients
+    // Show all fournisseurs
     public function index()
     {
-        return view('clients.index', [
-            'clients' => Client::latest()->filter(request(['search']))->paginate(5),
+        return view('fournisseurs.index', [
+            'fournisseurs' => Fournisseur::latest()->filter(request(['search']))->paginate(5),
         ]);
     }
 
-    // Show a single client
-    public function show(Client $client)
+    // Show a single fournisseur
+    public function show(Fournisseur $fournisseur)
     {
-        return view('clients.show', [
-            'client' => $client,
+        return view('fournisseurs.show', [
+            'fournisseur' => $fournisseur,
         ]);
     }
 
     // Show the edit form
-    public function edit(Client $client)
+    public function edit(Fournisseur $fournisseur)
     {
-        return view('clients.edit', [
-            'client' => $client,
+        return view('fournisseurs.edit', [
+            'fournisseur' => $fournisseur,
         ]);
     }
 
-    // Update the client
-    public function update(Request $request, Client $client) {
+    // Update the fournisseur
+    public function update(Request $request, Fournisseur $fournisseur) {
         //dd($request->all() );
 
         $formFields = $request->validate([
@@ -49,7 +49,7 @@ class ClientController extends Controller
             'titre' => 'required',
             'adresse' => 'required',
             'telephone' => 'required',
-            'email' => ['required', 'email'],
+            'email' => ['required', 'email', 'unique:addresses'],
         ]);
 
         
@@ -61,10 +61,10 @@ class ClientController extends Controller
 
 
         try {
-            // $address1['client_id'] = Client::create($formFields)->id;
+            // $address1['fournisseur_id'] = Fournisseur::create($formFields)->id;
             // begin the transaction
             DB::beginTransaction();
-            $person = $client->person;
+            $person = $fournisseur->person;
             $person->update($formFields);
             
             $addressFacturation = Address::where('person_id', $person->id)->where('type', 'facturation')->first();
@@ -95,22 +95,22 @@ class ClientController extends Controller
         }
 
 
-        return back()->with('message', 'Client updated successfully!');
+        return back()->with('message', 'Fournisseur updated successfully!');
     }
 
-    // Delete the client
-    public function destroy(Client $client) {
-        $client->person->is_active = false;
-        $client->person->save();
-        return back()->with('message', 'Client deleted successfully!');
+    // Delete the fournisseur
+    public function destroy(Fournisseur $fournisseur) {
+        $fournisseur->person->is_active = false;
+        $fournisseur->person->save();
+        return back()->with('message', 'Fournisseur deleted successfully!');
     }
 
     // Show the create form
     public function create() {
-        return view('clients.create');
+        return view('fournisseurs.create');
     }
 
-    // Store the client
+    // Store the fournisseur
     public function store(Request $request) {
 
         //dd($request->all() );
@@ -138,13 +138,13 @@ class ClientController extends Controller
 
 
         try {
-            // $address1['client_id'] = Client::create($formFields)->id;
+            // $address1['fournisseur_id'] = Fournisseur::create($formFields)->id;
             // begin the transaction
             DB::beginTransaction();
             $person = Person::create($formFields);
-            $client = new Client;
-            $client->person()->associate($person);
-            $client->save();
+            $fournisseur = new Fournisseur();
+            $fournisseur->person()->associate($person);
+            $fournisseur->save();
             $address1['person_id'] = $person->id;
             $address1['type'] = 'facturation';
             Address::create($address1);
@@ -172,6 +172,6 @@ class ClientController extends Controller
             DB::rollback();
         }
 
-        return redirect('/clients')->with('message', 'Client created successfully!');
+        return redirect('/fournisseurs')->with('message', 'Fournisseur created successfully!');
     }
 }

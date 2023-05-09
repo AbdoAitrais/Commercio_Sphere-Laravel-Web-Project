@@ -21,7 +21,7 @@ class AddressFactory extends Factory
             'adresse' => $this->faker->address(),
             'email' => $this->faker->email(),
             'telephone' => $this->faker->phoneNumber(),
-            'type' => $this->faker->randomElement(['Facturation', 'Livraison']),
+            'type' => $this->faker->randomElement(['facturation', 'livraison']),
         ];
     }
 }

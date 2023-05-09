@@ -1,14 +1,14 @@
 <x-layout>
     <section class="section main-section mb-5">
-        <a href="{{route('clients.index')}}" class="inline-block text-black ml-4 mb-4"><i class="fa-solid fa-arrow-left"></i> Back
+        <a href="{{route('fournisseurs.index')}}" class="inline-block text-black ml-4 mb-4"><i class="fa-solid fa-arrow-left"></i> Back
         </a>
-        <form method="POST" action="{{route('clients.update',['client'=>$client->id])}}">
+        <form method="POST" action="{{route('fournisseurs.update',['fournisseur'=>$fournisseur->id])}}">
             @method('PUT')
             @csrf   
             <x-card>
                 <x-card-header>
                     <span class="icon"><i class="fa fa-user-circle"></i></span>
-                    Ajouter Client
+                    Ajouter Fournisseur
                 </x-card-header>
                 <x-card-content>
                     {{-- <div class="field">
@@ -28,29 +28,29 @@
                         
                         <div class="relative z-0 w-full mb-6 group">
                             <div class="mb-6">
-                                <label for="nom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom Client <span class="text-red-600">*</span></label>
-                                <input type="text" id="nom" name="nom" value="{{$client->person->nom}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required>
+                                <label for="nom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom Fournisseur <span class="text-red-600">*</span></label>
+                                <input type="text" id="nom" name="nom" value="{{$fournisseur->person->nom}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required>
                                 @error('nom')
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                 @enderror
                             </div>
                             <div class="mb-6">
-                                <label for="prenom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prenom Client <span class="text-red-600">*</span></label>
-                                <input type="text" id="prenom" name="prenom" value="{{$client->person->prenom}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required>
+                                <label for="prenom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prenom Fournisseur <span class="text-red-600">*</span></label>
+                                <input type="text" id="prenom" name="prenom" value="{{$fournisseur->person->prenom}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required>
                                 @error('prenom')
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                 @enderror
                             </div>
                             <div class="mb-6">
                                 <label for="IF" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">IF <span class="text-red-600">*</span></label>
-                                <input type="text" id="IF" name="IF" value="{{$client->person->IF}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XX XX XXX XXX XXX" required>
+                                <input type="text" id="IF" name="IF" value="{{$fournisseur->person->IF}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XX XX XXX XXX XXX" required>
                                 @error('IF')
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                 @enderror
                             </div>
                             <div class="mb-6">
                                 <label for="ICE" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">I.C.E <span class="text-red-600">*</span></label>
-                                <input type="text" id="ICE" name="ICE" value="{{$client->person->ICE}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XXXXXXXXXXXXXXX" required>
+                                <input type="text" id="ICE" name="ICE" value="{{$fournisseur->person->ICE}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XXXXXXXXXXXXXXX" required>
                                 @error('ICE')
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                 @enderror
@@ -62,7 +62,7 @@
                 </x-card-content>
             </x-card>
             <div class="grid lg:grid-cols-2 md:gap-6 mt-5 md:grid-rows-1">
-                @foreach ($client->addresses as $address)
+                @foreach ($fournisseur->addresses as $address)
                     <x-card>
                         <x-card-header>
                             <span class="icon"><i class="fa fa-address-book"></i></span>

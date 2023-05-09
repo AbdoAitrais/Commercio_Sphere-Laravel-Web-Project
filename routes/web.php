@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\FournisseurController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -58,3 +59,26 @@ Route::post('users/authenticate', [UserController::class, 'authenticate'])->name
 
 // Logout
 Route::post('logout', [UserController::class, 'logout'])->name('logout')->middleware('auth');
+
+/********************************** Fournisseurs **********************************/
+
+// All Fournisseurs
+Route::get('fournisseurs', [FournisseurController::class, 'index'])->name('fournisseurs.index')->middleware('auth');
+
+// Create Fournisseur
+Route::get('fournisseurs/create', [FournisseurController::class, 'create'])->name('fournisseurs.create')->middleware('auth');
+
+// Single Fournisseur
+Route::get('fournisseurs/{fournisseur}', [FournisseurController::class, 'show'])->name('fournisseurs.show')->middleware('auth');
+
+// Show Edit Form
+Route::get('fournisseurs/{fournisseur}/edit', [FournisseurController::class, 'edit'])->name('fournisseurs.edit')->middleware('auth');
+
+// Update Fournisseur
+Route::put('fournisseurs/{fournisseur}', [FournisseurController::class, 'update'])->name('fournisseurs.update')->middleware('auth');
+
+// Delete Fournisseur
+Route::delete('fournisseurs/{fournisseur}', [FournisseurController::class, 'destroy'])->name('fournisseurs.destroy')->middleware('auth');
+
+// Store Fournisseur
+Route::post('storefournisseurs', [FournisseurController::class, 'store'])->name('fournisseurs.store')->middleware('auth');

@@ -2,9 +2,9 @@
   <section class="is-hero-bar">
     <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
       <h1 class="title">
-        Clients
+        Fournisseurs
       </h1>
-      <a href="{{route('clients.create')}}"><button class="button light">Ajouter</button></a>
+      <a href="{{route('fournisseurs.create')}}"><button class="button light">Ajouter</button></a>
     </div>
   </section>
   @include('partials._search')
@@ -13,7 +13,7 @@
       <header class="card-header">
         <p class="card-header-title text-lg">
           <span class="icon"><i class="fa fa-account-multiple"></i></span>
-          List des Clients
+          List des Fournisseurs
         </p>
         <a href="#" class="card-header-icon">
           <span class="icon"><i class="fa fa-reload"></i></span>
@@ -24,8 +24,8 @@
           <thead>
             <tr>
               <th>Id</th>
-              <th>Nom Client</th>
-              <th>Prenom Client</th>
+              <th>Nom Fournisseur</th>
+              <th>Prenom Fournisseur</th>
               <th>I.C.E</th>
               <th>Identifiant Fiscal</th>
               <th></th>
@@ -33,31 +33,31 @@
           </thead>
           <tbody>
 
-            @unless (empty($clients))
+            @unless (empty($fournisseurs))
 
-            @foreach ($clients as $client)
+            @foreach ($fournisseurs as $fournisseur)
             <tr>
-              <td data-label="Id">{{$client->id}}</td>
-              <td data-label="Nom Client">{{$client->person->nom}}</td>
-              <td data-label="Prenom Client">{{$client->person->prenom}}</td>
-              <td data-label="I.C.E">{{$client->person->ICE}}</td>
-              <td data-label="Identifiant Fiscal">{{$client->person->IF}}</td>
+              <td data-label="Id">{{$fournisseur->id}}</td>
+              <td data-label="Nom Fournisseur">{{$fournisseur->person->nom}}</td>
+              <td data-label="Prenom Fournisseur">{{$fournisseur->person->prenom}}</td>
+              <td data-label="I.C.E">{{$fournisseur->person->ICE}}</td>
+              <td data-label="Identifiant Fiscal">{{$fournisseur->person->IF}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
-                  <button class="button small blue --jb-modal" data-target="sample-modal-2{{$client->id}}" type="button">
+                  <button class="button small blue --jb-modal" data-target="sample-modal-2{{$fournisseur->id}}" type="button">
                     <span class="icon"><i class="fa fa-eye"></i></span>
                   </button>
-                  <a href="{{route('clients.edit',['client'=>$client->id])}}">
+                  <a href="{{route('fournisseurs.edit',['fournisseur'=>$fournisseur->id])}}">
                     <button class="button small green" type="button">
                       <span class="icon"><i class="fa fa-pen"></i></span>   
                     </button>
                   </a>
-                  <button class="button small red --jb-modal" data-target="sample-modal{{$client->id}}" type="button">
+                  <button class="button small red --jb-modal" data-target="sample-modal{{$fournisseur->id}}" type="button">
                     <span class="icon"><i class="fa fa-trash-can"></i></span>
                   </button>
                 </div>
                 {{-- Details Modal --}}
-                <div id="sample-modal-2{{$client->id}}" class="modal">
+                <div id="sample-modal-2{{$fournisseur->id}}" class="modal">
                   <div class="modal-background --jb-modal-close"></div>
                   <div class="modal-card">
                     <header class="modal-card-head">
@@ -65,29 +65,29 @@
                     </header>
                     <section class="modal-card-body">
                       <div class="font-bold text-xl mb-2">
-                        Details Client
+                        Details Fournisseur
                       </div>
                       <div class="mb-6">
-                        <label for="nom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom Client <span class="text-red-600">*</span></label>
-                        <input type="text" id="nom" name="nom" value="{{$client->person->nom}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" disabled>
+                        <label for="nom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom Fournisseur <span class="text-red-600">*</span></label>
+                        <input type="text" id="nom" name="nom" value="{{$fournisseur->person->nom}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" disabled>
 
                     </div>
                     <div class="mb-6">
-                        <label for="prenom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prenom Client <span class="text-red-600">*</span></label>
-                        <input type="text" id="prenom" name="prenom" value="{{$client->person->prenom}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" disabled>
+                        <label for="prenom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prenom Fournisseur <span class="text-red-600">*</span></label>
+                        <input type="text" id="prenom" name="prenom" value="{{$fournisseur->person->prenom}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" disabled>
                     </div>
                     <div class="mb-6">
                         <label for="IF" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">IF <span class="text-red-600">*</span></label>
-                        <input type="text" id="IF" name="IF" value="{{$client->person->IF}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XX XX XXX XXX XXX" disabled>
+                        <input type="text" id="IF" name="IF" value="{{$fournisseur->person->IF}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XX XX XXX XXX XXX" disabled>
 
                     </div>
                     <div class="mb-6">
                         <label for="ICE" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">I.C.E <span class="text-red-600">*</span></label>
-                        <input type="text" id="ICE" name="ICE" value="{{$client->person->ICE}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XXXXXXXXXXXXXXX" disabled>
+                        <input type="text" id="ICE" name="ICE" value="{{$fournisseur->person->ICE}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XXXXXXXXXXXXXXX" disabled>
 
                     </div>
                     {{-- Adresse facturation --}}
-                    @foreach ($client->addresses as $addresse)
+                    @foreach ($fournisseur->addresses as $addresse)
                     @if ($addresse->type == 'facturation')
                       <div class="font-bold text-xl mb-2">
                         Adresse Facturation
@@ -126,19 +126,19 @@
                   </div>
                 </div>
                 {{-- Delete Modal --}}
-                <div id="sample-modal{{$client->id}}" class="modal">
+                <div id="sample-modal{{$fournisseur->id}}" class="modal">
                   <div class="modal-background --jb-modal-close"></div>
                   <div class="modal-card">
                     <header class="modal-card-head">
                       <p class="modal-card-title">Suppression</p>
                     </header>
                     <section class="modal-card-body">
-                      <p>Vous etes sur vous voulez supprimez le client <b>{{$client->nom}}</b> ?</p>
-                      <p>Clickez <b>Confirmer</b> pour proceder la suppression du client</p>
+                      <p>Vous etes sur vous voulez supprimez le fournisseur <b>{{$fournisseur->nom}}</b> ?</p>
+                      <p>Clickez <b>Confirmer</b> pour proceder la suppression du fournisseur</p>
                     </section>
                     <footer class="modal-card-foot">
                       <button class="button --jb-modal-close">Annuler</button>
-                      <form method="POST" action="{{route('clients.destroy',['client'=>$client->id])}}">
+                      <form method="POST" action="{{route('fournisseurs.destroy',['fournisseur'=>$fournisseur->id])}}">
                         @csrf
                         @method('DELETE')
                         <button class="button red --jb-modal-close">Confirmer</button>
@@ -177,7 +177,7 @@
           </tbody>
         </table>
 
-        {{$clients->links()}}
+        {{$fournisseurs->links()}}
       </div>
     </div>
   </section>

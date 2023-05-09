@@ -53,7 +53,7 @@
             </a>
           </li>
           <li>
-            <a href="#void">
+            <a href="{{route('fournisseurs.index')}}">
               <span>Fournisseurs</span>
             </a>
           </li>

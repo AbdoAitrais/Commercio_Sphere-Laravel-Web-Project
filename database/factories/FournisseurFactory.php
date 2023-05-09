@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Client>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Fournisseur>
  */
-class ClientFactory extends PersonFactory
+class FournisseurFactory extends PersonFactory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class ClientFactory extends PersonFactory
     public function definition(): array
     {
         return [
-            //     
+            //
         ];
     }
 }
