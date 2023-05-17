@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AchatarticleController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\FournisseurController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VentearticleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -82,3 +84,43 @@ Route::delete('fournisseurs/{fournisseur}', [FournisseurController::class, 'dest
 
 // Store Fournisseur
 Route::post('storefournisseurs', [FournisseurController::class, 'store'])->name('fournisseurs.store')->middleware('auth');
+
+/********************************** Articles d'achat **********************************/
+
+// All Articles d'achat
+Route::get('achatarticles', [AchatarticleController::class, 'index'])->name('achatarticles.index')->middleware('auth');
+
+// Create Article d'achat
+Route::get('achatarticles/create', [AchatarticleController::class, 'create'])->name('achatarticles.create')->middleware('auth');
+
+// Show Edit Form
+Route::get('achatarticles/{achatarticle}/edit', [AchatarticleController::class, 'edit'])->name('achatarticles.edit')->middleware('auth');
+
+// Update Article d'achat
+Route::put('achatarticles/{achatarticle}', [AchatarticleController::class, 'update'])->name('achatarticles.update')->middleware('auth');
+
+// Delete Article d'achat
+Route::delete('achatarticles/{achatarticle}', [AchatarticleController::class, 'destroy'])->name('achatarticles.destroy')->middleware('auth');
+
+// Store Article d'achat
+Route::post('storeachatarticles', [AchatarticleController::class, 'store'])->name('achatarticles.store')->middleware('auth');
+
+/********************************** Articles de vente **********************************/
+
+// All Articles de vente
+Route::get('ventearticles', [VentearticleController::class, 'index'])->name('ventearticles.index')->middleware('auth');
+
+// Create Article de vente
+Route::get('ventearticles/create', [VentearticleController::class, 'create'])->name('ventearticles.create')->middleware('auth');
+
+// Show Edit Form
+Route::get('ventearticles/{ventearticle}/edit', [VentearticleController::class, 'edit'])->name('ventearticles.edit')->middleware('auth');
+
+// Update Article de vente
+Route::put('ventearticles/{ventearticle}', [VentearticleController::class, 'update'])->name('ventearticles.update')->middleware('auth');
+
+// Delete Article de vente
+Route::delete('ventearticles/{ventearticle}', [VentearticleController::class, 'destroy'])->name('ventearticles.destroy')->middleware('auth');
+
+// Store Article de vente
+Route::post('storeventearticles', [VentearticleController::class, 'store'])->name('ventearticles.store')->middleware('auth');

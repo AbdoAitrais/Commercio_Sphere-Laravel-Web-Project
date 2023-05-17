@@ -8,7 +8,7 @@
     <p class="menu-label">General</p>
     <ul class="menu-list">
       <li class="active">
-        <a href="https://themewagon.github.io/admin-one/index.html">
+        <a href="/"> 
           <span class="icon"><i class="fa fa-desktop-mac"></i></span>
           <span class="menu-item-label">Dashboard</span>
         </a>
@@ -22,23 +22,24 @@
           <span class="menu-item-label">Tables</span>
         </a>
       </li>
-      <li class="--set-active-forms-html">
-        <a href="https://themewagon.github.io/admin-one/forms.html">
-          <span class="icon"><i class="fa fa-edit"></i></span>
-          <span class="menu-item-label">Forms</span>
-        </a>
-      </li>
-      <li class="--set-active-profile-html">
-        <a href="https://themewagon.github.io/admin-one/profile.html">
-          <span class="icon"><i class="fa fa-user-circle"></i></span>
-          <span class="menu-item-label">Profile</span>
-        </a>
-      </li>
       <li>
-        <a href="https://themewagon.github.io/admin-one/login.html">
-          <span class="icon"><i class="fa fa-lock"></i></span>
-          <span class="menu-item-label">Login</span>
+        <a class="dropdown">
+          <span class="icon"><i class="fa fa-cart-shopping"></i></span>
+          <span class="menu-item-label">Articles</span>
+          <span class="icon"><i class="fa fa-plus"></i></span>
         </a>
+        <ul>
+          <li>
+            <a href="{{route('achatarticles.index')}}">
+              <span>Articles d'achats</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{route('ventearticles.index')}}">
+              <span>Articles de ventes</span>
+            </a>
+          </li>
+        </ul>
       </li>
       <li>
         <a class="dropdown">

@@ -7,7 +7,7 @@
       <a href="{{route('clients.create')}}"><button class="button light">Ajouter</button></a>
     </div>
   </section>
-  @include('partials._search')
+  @include('partials._search', ['search_component' => 'client'])
   <section class="section main-section mb-10">
     <div class="card has-table">
       <header class="card-header">
@@ -33,7 +33,7 @@
           </thead>
           <tbody>
 
-            @unless (empty($clients))
+            @unless ($clients->isEmpty())
 
             @foreach ($clients as $client)
             <tr>

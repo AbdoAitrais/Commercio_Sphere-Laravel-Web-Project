@@ -8,7 +8,7 @@
             <x-card>
                 <x-card-header>
                     <span class="icon"><i class="fa fa-user-circle"></i></span>
-                    Ajouter Fournisseur
+                    Modifier Fournisseur
                 </x-card-header>
                 <x-card-content>
                     {{-- <div class="field">
