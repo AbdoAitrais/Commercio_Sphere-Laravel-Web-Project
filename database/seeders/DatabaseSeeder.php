@@ -4,14 +4,12 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\AchatArticle;
 use App\Models\Address;
 use App\Models\Article;
 use App\Models\Client;
 use App\Models\Fournisseur;
 use App\Models\Person;
 use App\Models\User;
-use App\Models\VenteArticle;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -56,19 +54,9 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        Article::factory(2)->create();
+        Article::factory(10)->create();
         
-        AchatArticle::factory()->create(
-            [
-                'article_id' => 1,
-            ]
-        );
-
-        VenteArticle::factory()->create(
-            [
-                'article_id' => 2,
-            ]
-        );
+        
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

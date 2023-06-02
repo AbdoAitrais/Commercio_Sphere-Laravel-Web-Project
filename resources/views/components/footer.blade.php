@@ -5,7 +5,7 @@
           © 2023, All copyrights saved
         </div>
         <div>
-          <p>Distributed By: <a href="#" target="_blank">#####</a></p>
+          <p>Distributed By: <a href="#" target="_blank">Edinfo</a></p>
         </div>
       </div>
     </div>

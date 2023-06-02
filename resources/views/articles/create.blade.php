@@ -1,9 +1,9 @@
 <x-layout>
       
     <section class="section main-section mb-5">
-        <a href="{{route('achatarticles.index')}}" class="inline-block text-black ml-4 mb-4"><i class="fa-solid fa-arrow-left"></i> Back
+        <a href="{{route('articles.index')}}" class="inline-block text-black ml-4 mb-4"><i class="fa-solid fa-arrow-left"></i> Back
         </a>
-        <form method="POST" action="{{route('achatarticles.store')}}">
+        <form method="POST" action="{{route('articles.store')}}">
             @csrf   
             <x-card>
                 <x-card-header>
@@ -52,6 +52,13 @@
                                 <label for="prix" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix <span class="text-red-600">*</span></label>
                                 <input type="text" id="prix" name="prix" value="{{old('prix')}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="99.99" required>
                                 @error('prix')
+                                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                                @enderror
+                            </div>
+                            <div class="mb-6">
+                                <label for="quantite" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantité <span class="text-red-600">*</span></label>
+                                <input type="number" min="0" id="quantite" name="quantite" value="{{old('quantite')}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="99" required>
+                                @error('quantite')
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                 @enderror
                             </div>

@@ -2,54 +2,52 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Address;
-use App\Models\AchatArticle;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class AchatarticleController extends Controller
+class ArticleController extends Controller
 {
-    // Show all achatarticles
+    // Show all articles
     public function index()
     {
-        return view('achatarticles.index', [
-            'achatarticles' => AchatArticle::latest()->filter(request(['search']))->paginate(5),
+        return view('articles.index', [
+            'articles' => Article::latest()->filter(request(['search']))->paginate(5),
         ]);
     }
 
-    // Show a single achatarticle
-    public function show(AchatArticle $achatarticle)
+    // Show a single article
+    public function show(Article $article)
     {
-        return view('achatarticles.show', [
-            'achatarticle' => $achatarticle,
+        return view('articles.show', [
+            'article' => $article,
         ]);
     }
 
     // Show the edit form
-    public function edit(AchatArticle $achatarticle)
+    public function edit(Article $article)
     {
-        return view('achatarticles.edit', [
-            'achatarticle' => $achatarticle,
+        return view('articles.edit', [
+            'article' => $article,
         ]);
     }
 
-    // Update the achatarticle
-    public function update(Request $request, AchatArticle $achatarticle) {
+    // Update the article
+    public function update(Request $request, Article $article) {
         //dd($request->all() );
 
         $formFields = $request->validate([
             'titre' => 'required',
             'description' => 'required',
             'code' => ['required'],
-            'prix' => ['required'],
+            'prix' => ['required','numeric','min:0'],
+            'quantite' => ['required','numeric','min:0'],
         ]);
 
 
         try {
             // begin the transaction
             DB::beginTransaction();
-            $article = $achatarticle->article;
             $article->update($formFields);
             // commit the transaction
             DB::commit();
@@ -61,22 +59,22 @@ class AchatarticleController extends Controller
         }
 
 
-        return back()->with('message', 'AchatArticle updated successfully!');
+        return back()->with('message', 'Article updated successfully!');
     }
 
-    // Delete the achatarticle
-    public function destroy(AchatArticle $achatarticle) {
-        $achatarticle->article->is_active = false;
-        $achatarticle->article->save();
-        return back()->with('message', 'AchatArticle deleted successfully!');
+    // Delete the article
+    public function destroy(Article $article) {
+        $article->article->is_active = false;
+        $article->article->save();
+        return back()->with('message', 'Article deleted successfully!');
     }
 
     // Show the create form
     public function create() {
-        return view('achatarticles.create');
+        return view('articles.create');
     }
 
-    // Store the achatarticle
+    // Store the article
     public function store(Request $request) {
 
         //dd($request->all() );
@@ -85,17 +83,16 @@ class AchatarticleController extends Controller
             'titre' => 'required',
             'description' => 'required',
             'code' => ['required'],
-            'prix' => ['required'],
+            'prix' => ['required','numeric','min:0'],
+            'quantite' => ['required','numeric','min:0'],
         ]);
         
         try {
 
             // begin the transaction
             DB::beginTransaction();
-            $article = Article::create($formFields);
-            $achatarticle = new AchatArticle;
-            $achatarticle->article()->associate($article);
-            $achatarticle->save();
+            Article::create($formFields);
+            
             // commit the transaction
             DB::commit();
         } catch (\Throwable $e) {
@@ -105,6 +102,6 @@ class AchatarticleController extends Controller
             DB::rollback();
         }
 
-        return redirect('/achatarticles')->with('message', 'AchatArticle created successfully!');
+        return redirect('/articles')->with('message', 'Article created successfully!');
     }
 }

@@ -16,27 +16,49 @@
     </ul>
     <p class="menu-label">Examples</p>
     <ul class="menu-list">
-      <li class="--set-active-tables-html">
-        <a href="https://themewagon.github.io/admin-one/tables.html">
-          <span class="icon"><i class="fa fa-table"></i></span>
-          <span class="menu-item-label">Tables</span>
-        </a>
-      </li>
       <li>
         <a class="dropdown">
-          <span class="icon"><i class="fa fa-cart-shopping"></i></span>
-          <span class="menu-item-label">Articles</span>
+          <span class="icon"><i class="fa fa-file-invoice"></i></span>
+          <span class="menu-item-label">Ventes</span>
           <span class="icon"><i class="fa fa-plus"></i></span>
         </a>
         <ul>
           <li>
-            <a href="{{route('achatarticles.index')}}">
-              <span>Articles d'achats</span>
+            <a href="#">
+              <span>Bon de Livraison</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a class="dropdown">
+          <span class="icon"><i class="fa-regular fa-file"></i></span>
+          <span class="menu-item-label">Achats</span>
+          <span class="icon"><i class="fa fa-plus"></i></span>
+        </a>
+        <ul>
+          <li>
+            <a href="#">
+              <span>Bon de Commande</span>
             </a>
           </li>
           <li>
-            <a href="{{route('ventearticles.index')}}">
-              <span>Articles de ventes</span>
+            <a href="{{route('demandeachats.index')}}">
+              <span>Demande d'Achat</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a class="dropdown">
+          <span class="icon"><i class="fa fa-cart-shopping"></i></span>
+          <span class="menu-item-label">Stock</span>
+          <span class="icon"><i class="fa fa-plus"></i></span>
+        </a>
+        <ul>
+          <li>
+            <a href="{{route('articles.index')}}">
+              <span>Articles</span>
             </a>
           </li>
         </ul>
@@ -59,27 +81,6 @@
             </a>
           </li>
         </ul>
-      </li>
-    </ul>
-    <p class="menu-label">About</p>
-    <ul class="menu-list">
-      <li>
-        <a href="https://justboil.me/" onclick="alert('Coming soon'); return false" target="_blank" class="has-icon">
-          <span class="icon"><i class="fa fa-credit-card"></i></span>
-          <span class="menu-item-label">Premium Demo</span>
-        </a>
-      </li>
-      <li>
-        <a href="https://justboil.me/tailwind-admin-templates" class="has-icon">
-          <span class="icon"><i class="fa fa-circle-info"></i></span>
-          <span class="menu-item-label">About</span>
-        </a>
-      </li>
-      <li>
-        <a href="https://github.com/justboil/admin-one-tailwind" class="has-icon">
-          <span class="icon"><i class="fa-brands fa-github"></i></span>
-          <span class="menu-item-label">GitHub</span>
-        </a>
       </li>
     </ul>
   </div>

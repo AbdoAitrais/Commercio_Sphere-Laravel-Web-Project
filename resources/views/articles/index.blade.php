@@ -2,18 +2,18 @@
   <section class="is-hero-bar">
     <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
       <h1 class="title">
-        Articles d'Achat 
+        Articles
       </h1>
-      <a href="{{route('ventearticles.create')}}"><button class="button light">Ajouter</button></a>
+      <a href="{{route('articles.create')}}"><button class="button light">Ajouter</button></a>
     </div>
   </section>
-  @include('partials._search', ['search_component' => 'ventearticle'])
+  @include('partials._search', ['search_component' => 'article'])
   <section class="section main-section mb-10">
     <div class="card has-table">
       <header class="card-header">
         <p class="card-header-title text-lg">
           <span class="icon"><i class="fa fa-account-multiple"></i></span>
-          List des Articles d'Achat 
+          List des Articles
         </p>
         <a href="#" class="card-header-icon">
           <span class="icon"><i class="fa fa-reload"></i></span>
@@ -28,36 +28,38 @@
               <th>Description</th>
               <th>Code</th>
               <th>Prix</th>
+              <th>Quantité</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
 
-            @unless ($ventearticles->isEmpty())
+            @unless ($articles->isEmpty())
 
-            @foreach ($ventearticles as $ventearticle)
+            @foreach ($articles as $article)
             <tr>
-              <td data-label="Id">{{$ventearticle->id}}</td>
-              <td data-label="Titre">{{$ventearticle->article->titre}}</td>
-              <td data-label="Description">{{$ventearticle->article->description}}</td>
-              <td data-label="Code">{{$ventearticle->article->code}}</td>
-              <td data-label="Prix">{{$ventearticle->article->prix}}</td>
+              <td data-label="Id">{{$article->id}}</td>
+              <td data-label="Titre">{{$article->titre}}</td>
+              <td data-label="Description">{{$article->description}}</td>
+              <td data-label="Code">{{$article->code}}</td>
+              <td data-label="Prix">{{$article->prix}}</td>
+              <td data-label="Quantité">{{$article->quantite}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
-                  <button class="button small blue --jb-modal" data-target="sample-modal-2{{$ventearticle->id}}" type="button">
+                  <button class="button small blue --jb-modal" data-target="sample-modal-2{{$article->id}}" type="button">
                     <span class="icon"><i class="fa fa-eye"></i></span>
                   </button>
-                  <a href="{{route('ventearticles.edit',['ventearticle'=>$ventearticle->id])}}">
+                  <a href="{{route('articles.edit',['article'=>$article->id])}}">
                     <button class="button small green" type="button">
                       <span class="icon"><i class="fa fa-pen"></i></span>   
                     </button>
                   </a>
-                  <button class="button small red --jb-modal" data-target="sample-modal{{$ventearticle->id}}" type="button">
+                  <button class="button small red --jb-modal" data-target="sample-modal{{$article->id}}" type="button">
                     <span class="icon"><i class="fa fa-trash-can"></i></span>
                   </button>
                 </div>
                 {{-- Details Modal --}}
-                <div id="sample-modal-2{{$ventearticle->id}}" class="modal">
+                <div id="sample-modal-2{{$article->id}}" class="modal">
                   <div class="modal-background --jb-modal-close"></div>
                   <div class="modal-card">
                     <header class="modal-card-head">
@@ -69,23 +71,27 @@
                       </div>
                       <div class="mb-6">
                         <label for="titre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Titre</label>
-                        <input type="text" id="titre" name="titre" value="{{$ventearticle->article->titre}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" disabled>
+                        <input type="text" id="titre" name="titre" value="{{$article->titre}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" disabled>
 
                     </div>
                     <div class="mb-6">
                         <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                        <input type="text" id="description" name="description" value="{{$ventearticle->article->description}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" disabled>
+                        <input type="text" id="description" name="description" value="{{$article->description}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" disabled>
                     </div>
                     <div class="mb-6">
                         <label for="code" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Code</label>
-                        <input type="text" id="code" name="code" value="{{$ventearticle->article->code}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XX XX XXX XXX XXX" disabled>
+                        <input type="text" id="code" name="code" value="{{$article->code}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XX XX XXX XXX XXX" disabled>
 
                     </div>
                     <div class="mb-6">
                         <label for="prix" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix</label>
-                        <input type="text" id="prix" name="prix" value="{{$ventearticle->article->prix}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XXXXXXXXXXXXXXX" disabled>
+                        <input type="text" id="prix" name="prix" value="{{$article->prix}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XXXXXXXXXXXXXXX" disabled>
 
                     </div>
+                    <div class="mb-6">
+                      <label for="quantite" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantité</label>
+                      <input type="number" min="0" id="quantite" name="quantite" value="{{$article->quantite}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XXXXXXXXXXXXXXX" disabled>
+                  </div>
                   
                     </section>
                     <footer class="modal-card-foot">
@@ -95,19 +101,19 @@
                   </div>
                 </div>
                 {{-- Delete Modal --}}
-                <div id="sample-modal{{$ventearticle->id}}" class="modal">
+                <div id="sample-modal{{$article->id}}" class="modal">
                   <div class="modal-background --jb-modal-close"></div>
                   <div class="modal-card">
                     <header class="modal-card-head">
                       <p class="modal-card-title">Suppression</p>
                     </header>
                     <section class="modal-card-body">
-                      <p>Vous etes sur vous voulez supprimez le ventearticle <b>{{$ventearticle->titre}}</b> ?</p>
-                      <p>Clickez <b>Confirmer</b> pour proceder la suppression du ventearticle</p>
+                      <p>Vous etes sur vous voulez supprimez le article <b>{{$article->titre}}</b> ?</p>
+                      <p>Clickez <b>Confirmer</b> pour proceder la suppression du article</p>
                     </section>
                     <footer class="modal-card-foot">
                       <button class="button --jb-modal-close">Annuler</button>
-                      <form method="POST" action="{{route('ventearticles.destroy',['ventearticle'=>$ventearticle->id])}}">
+                      <form method="POST" action="{{route('articles.destroy',['article'=>$article->id])}}">
                         @csrf
                         @method('DELETE')
                         <button class="button red --jb-modal-close">Confirmer</button>
@@ -146,7 +152,7 @@
           </tbody>
         </table>
 
-        {{$ventearticles->links()}}
+        {{$articles->links()}}
       </div>
     </div>
   </section>

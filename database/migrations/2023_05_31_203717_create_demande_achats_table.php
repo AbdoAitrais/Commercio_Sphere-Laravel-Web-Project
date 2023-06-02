@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('articles', function (Blueprint $table) {
-            $table->id();   
-            $table->string('titre');
-            $table->longText('description')->nullable();
-            $table->double('prix');
-            $table->string('code')->nullable();
-            $table->integer('quantite')->nullable();
+        Schema::create('demande_achats', function (Blueprint $table) {
+            $table->id();
+            $table->date('date');
+            $table->string('etat');
+            $table->string('remarque')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('articles');
+        Schema::dropIfExists('demandeachats');
     }
 };

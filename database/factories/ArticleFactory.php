@@ -21,6 +21,7 @@ class ArticleFactory extends Factory
             'titre' => $this->faker->sentence(3),
             'description' => $this->faker->sentence(10),
             'prix' => $this->faker->numberBetween(100, 999),
+            'quantite' => $this->faker->numberBetween(1, 99),
             'is_active' => $this->faker->boolean(),
         ];
     }

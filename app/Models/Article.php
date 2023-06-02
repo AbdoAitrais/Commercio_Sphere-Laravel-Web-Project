@@ -23,15 +23,15 @@ class Article extends Model
         }
     }
 
-    // make relation with VenteArticle
-    public function venteArticles()
+    // make relation with LigneAchat
+    public function ligneAchats()
     {
-        return $this->hasMany(VenteArticle::class);
+        return $this->hasMany(LigneAchat::class);
     }
 
-    // make relation with AchatArticle
-    public function achatArticles()
-    {
-        return $this->hasMany(AchatArticle::class);
-    }
+    // // make relation with AchatArticle
+    // public function achatArticles()
+    // {
+    //     return $this->hasMany(AchatArticle::class);
+    // }
 }
