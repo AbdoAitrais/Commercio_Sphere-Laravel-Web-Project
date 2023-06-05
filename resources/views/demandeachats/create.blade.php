@@ -41,7 +41,7 @@
                                     <option value="Approuve">Approuvé</option>
                                     <option value="Brouillon">Brouillon</option>
                                     <option value="Rejete">Rejeté</option>
-                                    <option value="Annule">Annulé</option>4
+                                    <option value="Annule">Annulé</option>
                                 </select>
                                 @error('etat')
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -84,8 +84,7 @@
                   </div>
                 </div>
             </section> --}}
-
-            <x-card class="mb-10">
+            <x-card class="mb-10 card has-table">
                 <x-card-header>
                     <span class="icon"><i class="fa fa-account-multiple"></i></span>
                     List des Articles
@@ -101,62 +100,6 @@
                           </tr>
                         </thead>
                         <tbody id="article-container">
-              
-  
-                            {{-- <tr class=" h-20">
-                                <td data-label="Titre">
-                                    <div class="mb-6">
-                                        <input type="text" id="titre" name="virtuelarticles[][titre]" value="{{old('virtuelarticles[][titre]')}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
-                                        @error('virtuelarticles[][titre]')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                    </div>
-                                </td>
-                                <td data-label="Description">
-                                    <div class="mb-6">
-                                        <textarea type="text" id="description" name="virtuelarticles[][description]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>{{old('virtuelarticles[][description]')}}</textarea>
-                                        @error('virtuelarticles[][description]')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                    </div>       
-                                </td>
-                                <td data-label="Prix">
-                                    <div class="mb-6">
-                                        <input type="number" id="prix" name="virtuelarticles[][prix]" value="{{old('virtuelarticles[][prix]')}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
-                                        @error('virtuelarticles[][prix]')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                    </div>    
-                                </td>
-                                <td data-label="Quantité">
-                                    <div class="mb-6">
-                                        <input type="number" id="quantite" name="virtuelarticles[][quantite]" value="{{old('virtuelarticles[][quantite]')}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
-                                        @error('virtuelarticles[][quantite]')
-                                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                        @enderror
-                                    </div>
-                                </td>
-                                <td data-label="Taxe">
-                                    <div class="mb-6">
-                                        <select id="taxe" name="taxe" value="{{old('taxe')}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-30 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                                            <option value="0">0%</option>
-                                            <option value="0.07">7%</option>
-                                            <option value="0.1">10%</option>
-                                            <option value="0.2" selected>20%</option>
-                                        </select>
-                                    </div>
-                                </td>
-                                <td data-label="P.H.T">
-                                    <div class="mb-6">
-                                        <input type="number" id="pht" name="pht" value="{{old('pht')}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
-                                    </div>
-                                </td>
-                                <td>
-                                    <button class="remove-article-btn bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-1 px-3 border border-red-500 hover:border-transparent rounded-2xl mb-6" type="button">
-                                        <span class="icon"><i class="fa fa-trash-can"></i></span>
-                                    </button>     
-                                </td>
-                            </tr> --}}
               
                         </tbody>
                         </table>
@@ -187,35 +130,35 @@
 
 <script>
     $(document).ready(function() {
-        var addressCount = 1;
+        var addressCount = $("#article-container").children().length + 1;
         // Handle "Add Article" button click event
         $("#add-article-btn").click(function() {
             
             var newRow = `
-            <tr class=" h-20">
-                                <td data-label="Titre">
-                                    <div class="mb-6">
-                                        <input type="text" id="titre" name="virtuelarticles[`+addressCount+`][titre]" value="{{old('titre')}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
-                                    </div>
-                                </td>
-                                <td data-label="Description">
-                                    <div class="mb-6">
-                                        <textarea type="text" id="description" name="virtuelarticles[`+addressCount+`][description]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>{{old('description')}}</textarea>
+            <tr class="">
+                <td data-label="Titre">
+                    <div class="mb-6">
+                        <input type="text" id="titre" name="virtuelarticles[`+addressCount+`][titre]" value="{{old('titre')}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+                    </div>
+                </td>
+                <td data-label="Description">
+                    <div class="mb-6">
+                        <textarea type="text" id="description" name="virtuelarticles[`+addressCount+`][description]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>{{old('description')}}</textarea>
 
-                                    </div>       
-                                </td>
-                                <td data-label="Quantité">
-                                    <div class="mb-6">
-                                        <input type="number" id="quantite" name="virtuelarticles[`+addressCount+`][quantite]" value="{{old('quantite') ? old('quantite') : 1}}" class="quantite bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
+                    </div>       
+                </td>
+                <td data-label="Quantité">
+                    <div class="mb-6">
+                        <input type="number" id="quantite" name="virtuelarticles[`+addressCount+`][quantite]" value="{{old('quantite') ? old('quantite') : 1}}" class="quantite bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
 
-                                    </div>
-                                </td>
-                                <td>
-                                    <button class="remove-article-btn bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-1 px-3 border border-red-500 hover:border-transparent rounded-2xl mb-6" type="button">
-                                        <span class="icon"><i class="fa fa-trash-can"></i></span>
-                                    </button>     
-                                </td>
-                            </tr>
+                    </div>
+                </td>
+                <td class="actions-cell">
+                    <button class="remove-article-btn bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-1 px-3 border border-red-500 hover:border-transparent rounded-2xl mb-6" type="button">
+                        <span class="icon"><i class="fa fa-trash-can"></i></span>
+                    </button>     
+                </td>
+            </tr>
             `;
             addressCount++;
             // Append the new row to the table

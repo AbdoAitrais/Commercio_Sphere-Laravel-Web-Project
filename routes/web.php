@@ -125,7 +125,8 @@ Route::delete('demandeachats/{demandeachat}', [DemandeAchatController::class, 'd
 // Store DemandeAchats
 Route::post('storedemandeachats', [DemandeAchatController::class, 'store'])->name('demandeachats.store')->middleware('auth');
 
-Route::get('generate-pdf', [DemandeAchatController::class, 'generatePDF']);
+// generate PDF
+Route::get('demandeachats/{demandeachat}/pdf', [DemandeAchatController::class, 'pdf'])->name('demandeachats.pdf')->middleware('auth');
 
 /********************************** Bon de livraison **********************************/
 

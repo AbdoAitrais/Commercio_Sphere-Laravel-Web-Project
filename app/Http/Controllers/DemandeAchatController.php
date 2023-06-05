@@ -14,8 +14,33 @@ class DemandeAchatController extends Controller
     // Show all demandeachats
     public function index()
     {
+
+        $demandeachats = DemandeAchat::latest()->filter(request(['date', 'etat']));
+
+        
+
+        // // generate the pdf as base64 string for each demandeachat
+        // foreach ($demandeachats->get() as $demandeachat) {
+        //     $pdfBase64Array[$demandeachat->id] = $this->pdfBase64($demandeachat);
+        // }
+
+        // make an array of each etat and the number of demandeachats with this etat
+        $etatArray = [];
+        foreach (DemandeAchat::all() as $demandeachat) {
+            $etatArray[$demandeachat->etat] = $demandeachat->where('etat', $demandeachat->etat)->count();
+        }
+        
+        
+
+        // return $pdfBase64Array and demandeachats to the view
         return view('demandeachats.index', [
-            'demandeachats' => DemandeAchat::latest()->filter(request(['search']))->paginate(5),
+            'demandeachats' => $demandeachats->paginate(5),
+            'pdfBase64Array' => $pdfBase64Array ?? [],
+            'filters' => [
+                'date' => request('date'),
+                'etat' => request('etat'),
+            ],
+            'etatArray' => $etatArray,
         ]);
     }
 
@@ -57,17 +82,27 @@ class DemandeAchatController extends Controller
             $demandeachat->update([
                 'date' => $formFields['date'],
                 'etat' => $formFields['etat'],
+                'remarque' => $formFields['remarque'] ?? null,
             ]);
+
+            // delete the virtuelarticles that aren't in the form 
+            $demandeachat->virtuelLigneAchats()->whereNotIn('virtuel_article_id', array_column($formFields['virtuelarticles'], 'id'))->delete();
 
             // update or create the virtuelarticles
             foreach ($formFields['virtuelarticles'] as $virtuelarticle) {
-                $virtuelarticle = new VirtuelArticle($virtuelarticle);
-                $virtuelligneachats = VirtuelLigneAchat::updateOrCreate([
-                    'quantite' => $virtuelarticle->quantite,
+                $quantite = $virtuelarticle['quantite'];
+                unset($virtuelarticle['quantite']);
+                
+                // Create or update the VirtuelArticle
+                $virtuelarticleModel = VirtuelArticle::updateOrCreate($virtuelarticle);
+                
+                // Create or update the association with VirtuelLigneAchat
+                VirtuelLigneAchat::updateOrCreate([
+                    'virtuel_article_id' => $virtuelarticleModel->id,
+                    'demande_achat_id' => $demandeachat->id,
+                ], [
+                    'quantite' => $quantite,
                 ]);
-                $virtuelligneachats->virtuelarticle()->associate($virtuelarticle);
-                $virtuelligneachats->demandeachat()->associate($demandeachat);
-                $virtuelligneachats->save();
             }
 
             // commit the transaction
@@ -106,6 +141,7 @@ class DemandeAchatController extends Controller
             'remarque' => 'nullable',
             'virtuelarticles.*.titre' => 'required',
             'virtuelarticles.*.description' => 'required',
+            'virtuelarticles.*.code' => 'nullable',
             'virtuelarticles.*.quantite' => ['required','numeric','min:0'],
         ]);
         
@@ -118,18 +154,24 @@ class DemandeAchatController extends Controller
             $demandeachat = DemandeAchat::create([
                 'date' => $formFields['date'],
                 'etat' => $formFields['etat'],
+                'remarque' => $formFields['remarque'] ?? null,
             ]);
 
             // save the virtuelarticles
             foreach ($formFields['virtuelarticles'] as $virtuelarticle) {
                 $quantite = $virtuelarticle['quantite'];
                 unset($virtuelarticle['quantite']);
-                $virtuelarticle = VirtuelArticle::create($virtuelarticle);
-                $virtuelligneachats = new VirtuelLigneAchat();
-                $virtuelligneachats->virtuelarticle()->associate($virtuelarticle);
-                $virtuelligneachats->demandeachat()->associate($demandeachat);
-                $virtuelligneachats->quantite = $quantite;
-                $virtuelligneachats->save();
+                
+                // Create or update the VirtuelArticle
+                $virtuelarticleModel = VirtuelArticle::updateOrCreate($virtuelarticle);
+                
+                // Create or update the association with VirtuelLigneAchat
+                VirtuelLigneAchat::updateOrCreate([
+                    'virtuel_article_id' => $virtuelarticleModel->id,
+                    'demande_achat_id' => $demandeachat->id,
+                ], [
+                    'quantite' => $quantite,
+                ]);
             }
             
             // commit the transaction
@@ -145,15 +187,27 @@ class DemandeAchatController extends Controller
     }
 
     // Generate PDF
-    public function generatePDF(DemandeAchat $demandeachat) {
+    public function pdf(DemandeAchat $demandeachat) {
         $data = [
-            'invoice_number' => 'INV-123',
+            'demandeachat' => $demandeachat,
             'amount' => 100.00,
         ];
     
         $pdf = PDF::loadView('pdf.demandeachat', $data);
     
-        return $pdf->stream('demandeachat.pdf')->save(public_path("storage/documents/fichier.pdf"));
+        return $pdf->stream('demandeachat.pdf');
+    }
+
+    // Generate PDF as base64 string
+    public function pdfBase64(DemandeAchat $demandeachat) {
+        $data = [
+            'demandeachat' => $demandeachat,
+            'amount' => 100.00,
+        ];
+    
+        $pdf = PDF::loadView('pdf.demandeachat', $data);
+    
+        return base64_encode($pdf->output());
     }
 }
 

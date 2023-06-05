@@ -16,7 +16,7 @@
             <div class="user-avatar">
               <img src="{{asset('images/initials_003.svg')}}" alt="John Doe" class="rounded-full">
             </div>
-            <div class="is-user-name"><span>John Doe</span></div>
+            <div class="is-user-name"><span>{{auth()->user()->name}}</span></div>
             <span class="icon"><i class="fa fa-chevron-down"></i></span>
           </a>
           <div class="navbar-dropdown">

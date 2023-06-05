@@ -153,24 +153,17 @@
 
             @else
 
-            <div class="notification red">
+            <tr>
+<div class="notification red">
               <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
                 <div>
-                  <span class="icon"><i class="fa fa-buffer"></i></span>
+                  <span class="icon"><i class="fa-brands fa-buffer"></i></span>
                   <b>Empty table.</b>
                 </div>
                 <button type="button" class="button small textual --jb-notification-dismiss">Dismiss</button>
               </div>
             </div>
-
-            <div class="card empty">
-              <div class="card-content">
-                <div>
-                  <span class="icon large"><i class="fa fa-emoticon-sad fa-48px"></i></span>
-                </div>
-                <p>Nothing's here…</p>
-              </div>
-            </div>
+</tr>
 
             @endunless
 
