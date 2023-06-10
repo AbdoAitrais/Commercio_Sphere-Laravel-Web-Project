@@ -20,7 +20,8 @@ class ArticleFactory extends Factory
             'code' => $this->faker->unique()->numberBetween(1000, 9999),
             'titre' => $this->faker->sentence(3),
             'description' => $this->faker->sentence(10),
-            'prix' => $this->faker->numberBetween(100, 999),
+            'prix_achat' => $this->faker->numberBetween(100, 999),
+            'prix_vente' => $this->faker->numberBetween(100, 999),
             'quantite' => $this->faker->numberBetween(1, 99),
             'is_active' => $this->faker->boolean(),
         ];

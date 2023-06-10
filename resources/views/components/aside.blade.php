@@ -20,12 +20,17 @@
         <a class="dropdown">
           <span class="icon"><i class="fa fa-file-invoice"></i></span>
           <span class="menu-item-label">Ventes</span>
-          <span class="icon"><i class="fa fa-plus"></i></span>
+          <span class="icon"><i class="fa-solid fa-angle-down"></i></span>
         </a>
         <ul>
           <li>
             <a href="#">
               <span>Bon de Livraison</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{route('devis.index')}}">
+              <span>Devis</span>
             </a>
           </li>
         </ul>
@@ -34,7 +39,7 @@
         <a class="dropdown">
           <span class="icon"><i class="fa-regular fa-file"></i></span>
           <span class="menu-item-label">Achats</span>
-          <span class="icon"><i class="fa fa-plus"></i></span>
+          <span class="icon"><i class="fa-solid fa-angle-down"></i></span>
         </a>
         <ul>
           <li>
@@ -53,7 +58,7 @@
         <a class="dropdown">
           <span class="icon"><i class="fa fa-cart-shopping"></i></span>
           <span class="menu-item-label">Stock</span>
-          <span class="icon"><i class="fa fa-plus"></i></span>
+          <span class="icon"><i class="fa-solid fa-angle-down"></i></span>
         </a>
         <ul>
           <li>
@@ -67,7 +72,7 @@
         <a class="dropdown">
           <span class="icon"><i class="fa fa-user"></i></span>
           <span class="menu-item-label">Contacts</span>
-          <span class="icon"><i class="fa fa-plus"></i></span>
+          <span class="icon"><i class="fa-solid fa-angle-down"></i></span>
         </a>
         <ul>
           <li>

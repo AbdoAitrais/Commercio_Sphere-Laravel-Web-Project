@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class VirtuelLigneAchat extends Model
+class LigneDevis extends Model
 {
     use HasFactory;
 
-    // make relation with DemandeAchat
-    public function demandeAchat()
+    // make relation with Devis
+    public function devis()
     {
-        return $this->belongsTo(DemandeAchat::class);
+        return $this->belongsTo(Devis::class);
     }
 
     // make relation with Article

@@ -40,7 +40,8 @@ class ArticleController extends Controller
             'titre' => 'required',
             'description' => 'required',
             'code' => ['required'],
-            'prix' => ['required','numeric','min:0'],
+            'prix_achat' => ['required','numeric','min:0'],
+            'prix_vente' => ['numeric','min:0'],
             'quantite' => ['required','numeric','min:0'],
         ]);
 
@@ -83,7 +84,8 @@ class ArticleController extends Controller
             'titre' => 'required',
             'description' => 'required',
             'code' => ['required'],
-            'prix' => ['required','numeric','min:0'],
+            'prix_achat' => ['required','numeric','min:0'],
+            'prix_vente' => ['numeric','min:0'],
             'quantite' => ['required','numeric','min:0'],
         ]);
         

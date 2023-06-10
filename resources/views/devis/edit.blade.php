@@ -1,22 +1,22 @@
 <x-layout>
       
     <section class="section main-section mb-5">
-        <a href="{{route('demandeachats.index')}}" class="inline-block text-black ml-4 mb-4"><i class="fa-solid fa-arrow-left"></i> Back
+        <a href="{{route('devis.index')}}" class="inline-block text-black ml-4 mb-4"><i class="fa-solid fa-arrow-left"></i> Back
         </a>
-        <form id="your-form-id" method="POST" action="{{route('demandeachats.update',['demandeachat'=>$demandeachat->id])}}">
+        <form id="your-form-id" method="POST" action="{{route('devis.update',['devis'=>$devis->id])}}">
             @method('PUT')
             @csrf   
             <x-card>
                 <x-card-header>
                     <span class="icon"><i class="fa fa-user-circle"></i></span>
-                    Modifier Demande d'achat
+                    Modifier Devis
                 </x-card-header>
                 <x-card-content>
                         
                         <div class="relative z-0 w-full mb-6 group">
                             <div class="mb-6">
                                 <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date <span class="text-red-600">*</span></label>
-                                <input type="date" id="date" name="date" value="{{ $demandeachat->date ? $demandeachat->date : now()->format('Y-m-d') }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Titre Produit" required>
+                                <input type="date" id="date" name="date" value="{{ $devis->date ? $devis->date : now()->format('Y-m-d') }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Titre Produit" required>
                                 @error('date')
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                 @enderror
@@ -24,11 +24,11 @@
                             <div class="mb-6">
                                 <label for="etat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Etat <span class="text-red-600">*</span></label>
                                 <select type="text" id="etat" name="etat" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo veniam eaque incidunt tenetur, quia voluptatibus aliquam nisi quibusdam? Iste quaerat provident deserunt velit autem fuga facilis possimus vero dolorem impedit.">
-                                    <option value="En cours" {{ $demandeachat->etat == 'En cours' ? 'selected' : '' }}>En cours</option>
-                                    <option value="Approuve" {{ $demandeachat->etat == 'Approuve' ? 'selected' : '' }}>Approuvé</option>
-                                    <option value="Brouillon" {{ $demandeachat->etat == 'Brouillon' ? 'selected' : '' }}>Brouillon</option>
-                                    <option value="Rejete" {{ $demandeachat->etat == 'Rejete' ? 'selected' : '' }}>Rejeté</option>
-                                    <option value="Annule" {{ $demandeachat->etat == 'Annule' ? 'selected' : '' }}>Annulé</option>
+                                    <option value="En cours" {{ $devis->etat == 'En cours' ? 'selected' : '' }}>En cours</option>
+                                    <option value="Approuve" {{ $devis->etat == 'Approuve' ? 'selected' : '' }}>Approuvé</option>
+                                    <option value="Brouillon" {{ $devis->etat == 'Brouillon' ? 'selected' : '' }}>Brouillon</option>
+                                    <option value="Rejete" {{ $devis->etat == 'Rejete' ? 'selected' : '' }}>Rejeté</option>
+                                    <option value="Annule" {{ $devis->etat == 'Annule' ? 'selected' : '' }}>Annulé</option>
                                 </select>
                                 
                                 @error('etat')
@@ -36,9 +36,24 @@
                                 @enderror
                             </div>
 
+                            <div class="mb-6">
+                                <label for="etat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Etat <span class="text-red-600">*</span></label>
+                                <select type="text" id="etat" name="etat" value="{{old('etat')}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo veniam eaque incidunt tenetur, quia voluptatibus aliquam nisi quibusdam? Iste quaerat provident deserunt velit autem fuga facilis possimus vero dolorem impedit." required>
+                                    <option value="En cours">En cours</option>
+                                    <option value="Gagne">Gagné</option>
+                                    <option value="Facture">Facturé</option>
+                                    <option value="Brouillon">Brouillon</option>
+                                    <option value="Rejete">Rejeté</option>
+                                    <option value="Annule">Annulé</option>4
+                                </select>
+                                @error('etat')
+                                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                                @enderror
+                            </div>
+
                             <div class="m-1">
                                 <label for="remarque">Remarque</label>
-                                <input type="text" id="remarque" name="remarque" value="{{$demandeachat->remarque}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <input type="text" id="remarque" name="remarque" value="{{$devis->remarque}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 @error('remarque')
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                 @enderror
@@ -70,25 +85,25 @@
                             @php
                                 $index = 0;
                             @endphp
-                            @foreach ($demandeachat->virtuelLigneAchats as $virtuelLigneAchat)
+                            @foreach ($devis->ligneDevis as $ligneDevis)
                             <tr class="">
                                 @php
                                     $index = $index + 1;
                                 @endphp
                                 <td data-label="Titre">
                                     <div class="mb-6">
-                                        <input type="text" id="titre" name="articles[{{$index}}][titre]" value="{{$virtuelLigneAchat->article->titre}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+                                        <input type="text" id="titre" name="articles[{{$index}}][titre]" value="{{$ligneDevis->article->titre}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
                                     </div>
                                 </td>
                                 <td data-label="Description">
                                     <div class="mb-6">
-                                        <textarea type="text" id="description" name="articles[{{$index}}][description]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>{{$virtuelLigneAchat->article->description}}</textarea>
+                                        <textarea type="text" id="description" name="articles[{{$index}}][description]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>{{$ligneDevis->article->description}}</textarea>
                 
                                     </div>       
                                 </td>
                                 <td data-label="Quantité">
                                     <div class="mb-6">
-                                        <input type="number" id="quantite" name="articles[{{$index}}][quantite]" value="{{$virtuelLigneAchat->quantite ? $virtuelLigneAchat->quantite : 1}}" class="quantite bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
+                                        <input type="number" id="quantite" name="articles[{{$index}}][quantite]" value="{{$ligneDevis->article->quantite ? $ligneDevis->article->quantite : 1}}" class="quantite bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
                 
                                     </div>
                                 </td>

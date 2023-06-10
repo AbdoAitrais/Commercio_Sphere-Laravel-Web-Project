@@ -34,16 +34,11 @@
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                 @enderror
                             </div>
-                            <div class="mb-6">
-                                <label for="etat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Etat <span class="text-red-600">*</span></label>
-                                <select type="text" id="etat" name="etat" value="{{old('etat')}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo veniam eaque incidunt tenetur, quia voluptatibus aliquam nisi quibusdam? Iste quaerat provident deserunt velit autem fuga facilis possimus vero dolorem impedit." required>
-                                    <option value="Envoye">Envoyé</option>
-                                    <option value="Approuve">Approuvé</option>
-                                    <option value="Brouillon">Brouillon</option>
-                                    <option value="Rejete">Rejeté</option>
-                                    <option value="Annule">Annulé</option>
-                                </select>
-                                @error('etat')
+                            
+                            <div class="m-1">
+                                <label for="numero">Numero <span class="text-red-600">*</span></label>
+                                <input type="text" id="numero" name="numero" value="{{$numero ?? ""}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                @error('numero')
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                 @enderror
                             </div>
@@ -55,6 +50,7 @@
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                 @enderror
                             </div>
+                            
                             
                         </div>
                         
@@ -138,18 +134,18 @@
             <tr class="">
                 <td data-label="Titre">
                     <div class="mb-6">
-                        <input type="text" id="titre" name="virtuelarticles[`+addressCount+`][titre]" value="{{old('titre')}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+                        <input type="text" id="titre" name="articles[`+addressCount+`][titre]" value="{{old('titre')}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
                     </div>
                 </td>
                 <td data-label="Description">
                     <div class="mb-6">
-                        <textarea type="text" id="description" name="virtuelarticles[`+addressCount+`][description]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>{{old('description')}}</textarea>
+                        <textarea type="text" id="description" name="articles[`+addressCount+`][description]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>{{old('description')}}</textarea>
 
                     </div>       
                 </td>
                 <td data-label="Quantité">
                     <div class="mb-6">
-                        <input type="number" id="quantite" name="virtuelarticles[`+addressCount+`][quantite]" value="{{old('quantite') ? old('quantite') : 1}}" class="quantite bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
+                        <input type="number" id="quantite" name="articles[`+addressCount+`][quantite]" value="{{old('quantite') ? old('quantite') : 1}}" class="quantite bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
 
                     </div>
                 </td>

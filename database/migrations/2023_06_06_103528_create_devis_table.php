@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('demande_achats', function (Blueprint $table) {
+        Schema::create('devis', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('client_id')->constrained('clients');
             $table->string('numero')->unique();
             $table->date('date')->default(now());
             $table->string('etat')->default('En cours');
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('demandeachats');
+        Schema::dropIfExists('devis');
     }
 };

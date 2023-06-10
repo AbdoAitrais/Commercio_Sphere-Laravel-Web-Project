@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DemandeAchat;
-use App\Models\VirtuelArticle;
+use App\Models\Article;
 use App\Models\VirtuelLigneAchat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -61,7 +61,7 @@ class BonLivraisonController extends Controller
 
             // update or create the virtuelarticles
             foreach ($formFields['virtuelarticles'] as $virtuelarticle) {
-                $virtuelarticle = new VirtuelArticle($virtuelarticle);
+                $virtuelarticle = new Article($virtuelarticle);
                 $virtuelligneachats = VirtuelLigneAchat::updateOrCreate([
                     'quantite' => $virtuelarticle->quantite,
                 ]);
@@ -124,7 +124,7 @@ class BonLivraisonController extends Controller
             foreach ($formFields['virtuelarticles'] as $virtuelarticle) {
                 $quantite = $virtuelarticle['quantite'];
                 unset($virtuelarticle['quantite']);
-                $virtuelarticle = VirtuelArticle::create($virtuelarticle);
+                $virtuelarticle = Article::create($virtuelarticle);
                 $virtuelligneachats = new VirtuelLigneAchat();
                 $virtuelligneachats->virtuelarticle()->associate($virtuelarticle);
                 $virtuelligneachats->demandeachat()->associate($demandeachat);

@@ -2,39 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DemandeAchat;
 use App\Models\Article;
-use App\Models\VirtuelLigneAchat;
+use App\Models\Client;
+use App\Models\Devis;
+use App\Models\LigneDevis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use PDF;
 
-class DemandeAchatController extends Controller
+class DevisController extends Controller
 {
-    // Show all demandeachats
+    // Show all devis
     public function index()
     {
 
-        $demandeachats = DemandeAchat::latest()->filter(request(['date', 'etat']));
+        $devis = Devis::latest()->filter(request(['date', 'etat']));
 
         
 
-        // // generate the pdf as base64 string for each demandeachat
-        // foreach ($demandeachats->get() as $demandeachat) {
-        //     $pdfBase64Array[$demandeachat->id] = $this->pdfBase64($demandeachat);
+        // // generate the pdf as base64 string for each devis
+        // foreach ($devis->get() as $devis) {
+        //     $pdfBase64Array[$devis->id] = $this->pdfBase64($devis);
         // }
 
-        // make an array of each etat and the number of demandeachats with this etat
+        // make an array of each etat and the number of devis with this etat
         $etatArray = [];
-        foreach (DemandeAchat::all() as $demandeachat) {
-            $etatArray[$demandeachat->etat] = $demandeachat->where('etat', $demandeachat->etat)->count();
+        foreach (Devis::all() as $devis) {
+            $etatArray[$devis->etat] = $devis->where('etat', $devis->etat)->count();
         }
         
         
 
-        // return $pdfBase64Array and demandeachats to the view
-        return view('demandeachats.index', [
-            'demandeachats' => $demandeachats->paginate(5),
+        // return $pdfBase64Array and devis to the view
+        return view('devis.index', [
+            'devis' => $devis->paginate(5),
             'pdfBase64Array' => $pdfBase64Array ?? [],
             'filters' => [
                 'date' => request('date'),
@@ -44,33 +44,37 @@ class DemandeAchatController extends Controller
         ]);
     }
 
-    // Show a single demandeachat
-    public function show(DemandeAchat $demandeachat)
+    // Show a single devis
+    public function show(Devis $devis)
     {
-        return view('demandeachats.show', [
-            'demandeachat' => $demandeachat,
+        return view('devis.show', [
+            'devis' => $devis,
         ]);
     }
 
     // Show the edit form
-    public function edit(DemandeAchat $demandeachat)
+    public function edit(Devis $devis)
     {
-        return view('demandeachats.edit', [
-            'demandeachat' => $demandeachat,
+        return view('devis.edit', [
+            'devis' => $devis,
         ]);
     }
 
-    // Update the demandeachat
-    public function update(Request $request, DemandeAchat $demandeachat) {
+    // Update the devis
+    public function update(Request $request, Devis $devis) {
         //dd($request->all() );
 
         $formFields = $request->validate([
             'date' => 'required',
-            'etat' => 'required',
             'remarque' => 'nullable',
+            'numero' => 'required|unique:demande_achats',
             'articles.*.titre' => 'required',
             'articles.*.description' => 'required',
+            'articles.*.code' => 'nullable',
             'articles.*.quantite' => ['required','numeric','min:0'],
+            'articles.*.prix_achat' => ['required','numeric','min:0'],
+            'articles.*.prix_vente' => ['required','numeric','min:0'],
+
         ]);
 
 
@@ -78,15 +82,15 @@ class DemandeAchatController extends Controller
             // begin the transaction
             DB::beginTransaction();
             
-            // update the demandeachat
-            $demandeachat->update([
+            // update the devis
+            $devis->update([
                 'date' => $formFields['date'],
                 'etat' => $formFields['etat'],
                 'remarque' => $formFields['remarque'] ?? null,
             ]);
 
             // delete the articles that aren't in the form 
-            $demandeachat->virtuelLigneAchats()->whereNotIn('article_id', array_column($formFields['articles'], 'id'))->delete();
+            $devis->virtuelLigneAchats()->whereNotIn('article_id', array_column($formFields['articles'], 'id'))->delete();
 
             // update or create the articles
             foreach ($formFields['articles'] as $article) {
@@ -96,10 +100,10 @@ class DemandeAchatController extends Controller
                 // Create or update the Article
                 $articleModel = Article::updateOrCreate($article);
                 
-                // Create or update the association with VirtuelLigneAchat
-                VirtuelLigneAchat::updateOrCreate([
+                // Create or update the association with LigneDevis
+                LigneDevis::updateOrCreate([
                     'article_id' => $articleModel->id,
-                    'demande_achat_id' => $demandeachat->id,
+                    'devis_id' => $devis->id,
                 ], [
                     'quantite' => $quantite,
                 ]);
@@ -115,27 +119,27 @@ class DemandeAchatController extends Controller
         }
 
 
-        return back()->with('message', 'DemandeAchat updated successfully!');
+        return back()->with('message', 'Devis updated successfully!');
     }
 
-    // Delete the demandeachat
-    public function destroy(DemandeAchat $demandeachat) {
-        $demandeachat->is_active = false;
-        $demandeachat->save();
-        return back()->with('message', 'DemandeAchat deleted successfully!');
+    // Delete the devis
+    public function destroy(Devis $devis) {
+        $devis->is_active = false;
+        $devis->save();
+        return back()->with('message', 'Devis deleted successfully!');
     }
 
     // Show the create form
     public function create() {
         // generate numero
-        $demandeachat = new DemandeAchat();
+        $devis = new Devis();
 
-        return view('demandeachats.create', [
-            'numero' => $demandeachat ? $demandeachat->generateNumero() : ('DA-'.date('Y').'-0000') + DemandeAchat::count(),
+        return view('devis.create', [
+            'numero' => $devis ? $devis->generateNumero() : ('DEV-'.date('Y').'-0000') + Devis::count(),
         ]);
     }
 
-    // Store the demandeachat
+    // Store the devis
     public function store(Request $request) {
 
         //dd($request->all() );
@@ -143,11 +147,13 @@ class DemandeAchatController extends Controller
         $formFields = $request->validate([
             'date' => 'required',
             'remarque' => 'nullable',
-            'numero' => 'required|unique:demande_achats',
             'articles.*.titre' => 'required',
             'articles.*.description' => 'required',
             'articles.*.code' => 'nullable',
             'articles.*.quantite' => ['required','numeric','min:0'],
+            'articles.*.prix_achat' => ['required','numeric','min:0'],
+            'articles.*.prix_vente' => ['required','numeric','min:0'],
+
         ]);
         
         try {
@@ -158,8 +164,8 @@ class DemandeAchatController extends Controller
             // set default etat
             $formFields['etat'] = 'En cours';
 
-            // create the demandeachat
-            $demandeachat = DemandeAchat::create([
+            // create the devis
+            $devis = Devis::create([
                 'date' => $formFields['date'],
                 'etat' => $formFields['etat'],
                 'numero' => $formFields['numero'],
@@ -174,10 +180,10 @@ class DemandeAchatController extends Controller
                 // Create or update the Article
                 $articleModel = Article::updateOrCreate($article);
                 
-                // Create or update the association with VirtuelLigneAchat
-                VirtuelLigneAchat::updateOrCreate([
+                // Create or update the association with LigneDevis
+                LigneDevis::updateOrCreate([
                     'article_id' => $articleModel->id,
-                    'demande_achat_id' => $demandeachat->id,
+                    'devis_id' => $devis->id,
                 ], [
                     'quantite' => $quantite,
                 ]);
@@ -192,31 +198,30 @@ class DemandeAchatController extends Controller
             DB::rollback();
         }
 
-        return redirect('/demandeachats')->with('message', 'DemandeAchat created successfully!');
+        return redirect('/devis')->with('message', 'Devis created successfully!');
     }
 
     // Generate PDF
-    public function pdf(DemandeAchat $demandeachat) {
+    public function pdf(Devis $devis) {
         $data = [
-            'demandeachat' => $demandeachat,
+            'devis' => $devis,
             'amount' => 100.00,
         ];
     
-        $pdf = PDF::loadView('pdf.demandeachat', $data);
+        $pdf = PDF::loadView('pdf.devis', $data);
     
-        return $pdf->stream('demandeachat.pdf');
+        return $pdf->stream('devis.pdf');
     }
 
     // Generate PDF as base64 string
-    public function pdfBase64(DemandeAchat $demandeachat) {
+    public function pdfBase64(Devis $devis) {
         $data = [
-            'demandeachat' => $demandeachat,
+            'devis' => $devis,
             'amount' => 100.00,
         ];
     
-        $pdf = PDF::loadView('pdf.demandeachat', $data);
+        $pdf = PDF::loadView('pdf.devis', $data);
     
         return base64_encode($pdf->output());
     }
 }
-

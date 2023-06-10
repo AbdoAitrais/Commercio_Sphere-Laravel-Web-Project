@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();   
             $table->string('titre');
             $table->longText('description')->nullable();
-            $table->double('prix');
+            $table->double('prix_achat')->nullable();
+            $table->double('prix_vente')->nullable();
             $table->string('code')->nullable();
             $table->integer('quantite')->nullable();
             $table->boolean('is_active')->default(true);

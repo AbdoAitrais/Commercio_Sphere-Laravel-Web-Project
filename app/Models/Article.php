@@ -29,9 +29,9 @@ class Article extends Model
         return $this->hasMany(LigneAchat::class);
     }
 
-    // // make relation with AchatArticle
-    // public function achatArticles()
-    // {
-    //     return $this->hasMany(AchatArticle::class);
-    // }
+    // make relation with LigneDevis
+    public function ligneDevis()
+    {
+        return $this->hasMany(LigneDevis::class);
+    }
 }

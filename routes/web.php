@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DemandeAchatController;
+use App\Http\Controllers\DevisController;
 use App\Http\Controllers\FournisseurController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,9 @@ Route::get('/', function () {
 
 // All Clients
 Route::get('clients', [ClientController::class, 'index'])->name('clients.index')->middleware('auth');
+
+// fetch all clients
+Route::get('fetchclients', [ClientController::class, 'fetchAll'])->name('clients.fetchAll')->middleware('auth');
 
 // Create Client
 Route::get('clients/create', [ClientController::class, 'create'])->name('clients.create')->middleware('auth');
@@ -127,6 +131,29 @@ Route::post('storedemandeachats', [DemandeAchatController::class, 'store'])->nam
 
 // generate PDF
 Route::get('demandeachats/{demandeachat}/pdf', [DemandeAchatController::class, 'pdf'])->name('demandeachats.pdf')->middleware('auth');
+
+/**************************************** Devis ****************************************/
+
+// All devis
+Route::get('devis', [DevisController::class, 'index'])->name('devis.index')->middleware('auth');
+
+// Create devis
+Route::get('devis/create', [DevisController::class, 'create'])->name('devis.create')->middleware('auth');
+
+// Show Edit Form
+Route::get('devis/{devis}/edit', [DevisController::class, 'edit'])->name('devis.edit')->middleware('auth');
+
+// Update devis
+Route::put('devis/{devis}', [DevisController::class, 'update'])->name('devis.update')->middleware('auth');
+
+// Delete devis
+Route::delete('devis/{devis}', [DevisController::class, 'destroy'])->name('devis.destroy')->middleware('auth');
+
+// Store devis
+Route::post('storedevis', [DevisController::class, 'store'])->name('devis.store')->middleware('auth');
+
+// generate PDF
+Route::get('devis/{devis}/pdf', [DevisController::class, 'pdf'])->name('devis.pdf')->middleware('auth');
 
 /********************************** Bon de livraison **********************************/
 

@@ -18,6 +18,16 @@ class ClientController extends Controller
         ]);
     }
 
+    // fetch all clients
+    public function fetchAll()
+    {
+        // get clients with their person and addresses
+
+        return response()->json([
+            'clients' => Client::with('person.addresses')->get(),
+        ]);
+    }
+
     // Show a single client
     public function show(Client $client)
     {

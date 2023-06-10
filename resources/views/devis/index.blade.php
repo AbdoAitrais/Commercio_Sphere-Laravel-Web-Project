@@ -14,12 +14,12 @@
   <section class="is-hero-bar">
     <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
       <h1 class="title">
-        Demandes d'achat
+        Devis
       </h1>
-      <a href="{{route('demandeachats.create')}}"><button class="button light">Ajouter</button></a>
+      <a href="{{route('devis.create')}}"><button class="button light">Ajouter</button></a>
     </div>
   </section>
-  <form action="{{route('demandeachats.index')}}">
+  <form action="{{route('devis.index')}}">
     <div class="relative border-2 border-gray-100 m-4 rounded-lg">
       <div class="absolute top-4 left-3">
         <i class="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>
@@ -38,14 +38,14 @@
       <header class="card-header">
         <p class="card-header-title text-lg">
           <span class="icon"><i class="fa fa-account-multiple"></i></span>
-          List des demandes d'achat
+          List des devis
         </p>
         <a href="#" class="card-header-icon">
           <span class="icon"><i class="fa fa-reload"></i></span>
         </a>
       </header>
       <div class="card-content">
-        <form action="{{route('demandeachats.index')}}">
+        <form action="{{route('devis.index')}}">
         <input type="text" name="etat" id="etat" hidden>
           <ul id="etat_list" class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
             <li class="mr-2">
@@ -94,30 +94,28 @@
           <thead>
             <tr>
               <th>Id</th>
-              <th>Numero</th>
-              <th>Etat</th>
               <th>Date</th>
+              <th>Etat</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
 
-            @unless ($demandeachats->isEmpty())
+            @unless ($devis->isEmpty())
 
-            @foreach ($demandeachats as $demandeachat)
+            @foreach ($devis as $demandeachat)
             <tr>
               <td data-label="Id">{{$demandeachat->id}}</td>
-              <td data-label="Date">{{$demandeachat->numero}}</td>
+              <td data-label="Date">{{$demandeachat->date}}</td>
               <td data-label="Description">
                 <span class="{{
                   // use the ternary operator to return the corresponding color
                   $demandeachat->etat == 'En cours' ? 'bg-blue-500' : ($demandeachat->etat == 'Approuve' ? 'bg-green-600' : ($demandeachat->etat == 'Brouillon' ? 'bg-gray-600' : ($demandeachat->etat == 'Rejete' ? 'bg-yellow-500' : 'bg-red-600')))
                   }} text-white pl-1 pr-1 pt-0.5 pb-1">{{$demandeachat->etat}}</span>
               </td>
-              <td data-label="Date">{{$demandeachat->date}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
-                  <a href="{{route('demandeachats.pdf',['demandeachat'=>$demandeachat->id])}}" target="_blank">
+                  <a href="{{route('devis.pdf',['demandeachat'=>$demandeachat->id])}}" target="_blank">
                     <button class="button small bg-gray-500" data-target="sample-modal-pdf-{{$demandeachat->id}}" type="button" title="document">
                       <span class="icon"><i class="fa-regular fa-file-pdf text-white"></i></span>   
                     </button>
@@ -125,7 +123,7 @@
                   <button class="button small blue --jb-modal" data-target="sample-modal-2{{$demandeachat->id}}" type="button" title="details">
                     <span class="icon"><i class="fa fa-eye"></i></span>
                   </button>
-                  <a href="{{route('demandeachats.edit',['demandeachat'=>$demandeachat->id])}}">
+                  <a href="{{route('devis.edit',['demandeachat'=>$demandeachat->id])}}">
                     <button class="button small green" type="button" title="modifier">
                       <span class="icon"><i class="fa fa-pen"></i></span>   
                     </button>
@@ -156,22 +154,22 @@
                           <input type="text" id="etat" name="etat" value="{{$demandeachat->etat}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" disabled>
                       </div>
                       
-                      @foreach ($demandeachat->virtuelLigneAchats as $virtuelLigneAchat)
+                      @foreach ($demandeachat->ligneVentes as $ligneVente)
                       <div class="font-bold text-xl mb-2">
                         Article {{$loop->iteration}}
                       </div>
                         <div class="mb-6">
                           <label for="titre{{$loop->iteration}}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Titre</label>
-                          <input type="text" id="titre{{$loop->iteration}}" name="titre" value="{{$virtuelLigneAchat->article->titre}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" disabled>
+                          <input type="text" id="titre{{$loop->iteration}}" name="titre" value="{{$ligneVente->article->titre}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" disabled>
 
                         </div>
                         <div class="mb-6">
                             <label for="description{{$loop->iteration}}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                            <input type="text" id="description{{$loop->iteration}}" name="description" value="{{$virtuelLigneAchat->article->description}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" disabled>
+                            <input type="text" id="description{{$loop->iteration}}" name="description" value="{{$ligneVente->article->description}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" disabled>
                         </div>
                         <div class="mb-6">
                           <label for="quantite{{$loop->iteration}}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantité</label>
-                          <input type="number" min="0" id="quantite{{$loop->iteration}}" name="quantite" value="{{$virtuelLigneAchat->quantite}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XXXXXXXXXXXXXXX" disabled>
+                          <input type="number" min="0" id="quantite{{$loop->iteration}}" name="quantite" value="{{$ligneVente->quantite}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XXXXXXXXXXXXXXX" disabled>
                         </div>
                       @endforeach
                   
@@ -195,7 +193,7 @@
                     </section>
                     <footer class="modal-card-foot">
                       <button class="button --jb-modal-close">Annuler</button>
-                      <form method="POST" action="{{route('demandeachats.destroy',['demandeachat'=>$demandeachat->id])}}">
+                      <form method="POST" action="{{route('devis.destroy',['demandeachat'=>$demandeachat->id])}}">
                         @csrf
                         @method('DELETE')
                         <button class="button red --jb-modal-close">Confirmer</button>
@@ -246,7 +244,7 @@
           </tbody>
         </table>
 
-        {{$demandeachats->links()}}
+        {{$devis->links()}}
       </div>
     </div>
   </section>
@@ -309,7 +307,7 @@
 {{-- @push('scripts')
     <script>
         $(document).ready(function() {
-            @foreach ($demandeachats as $demandeachat)
+            @foreach ($devis as $demandeachat)
                 $('#sample-modal-pdf-{{ $demandeachat->id }}').on('show.bs.modal', function(event) {
                     var modal = $(this);
                     var pdfBase64 = '{{ $pdfBase64Array[$demandeachat->id] }}';

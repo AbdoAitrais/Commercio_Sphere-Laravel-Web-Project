@@ -27,7 +27,8 @@
               <th>Titre</th>
               <th>Description</th>
               <th>Code</th>
-              <th>Prix</th>
+              <th>Prix Achat</th>
+              <th>Prix Vente</th>
               <th>Quantité</th>
               <th></th>
             </tr>
@@ -42,7 +43,8 @@
               <td data-label="Titre">{{$article->titre}}</td>
               <td data-label="Description">{{$article->description}}</td>
               <td data-label="Code">{{$article->code}}</td>
-              <td data-label="Prix">{{$article->prix}}</td>
+              <td data-label="Prix Achat">{{$article->prix_achat}}</td>
+              <td data-label="Prix Vente">{{$article->prix_vente}}</td>
               <td data-label="Quantité">{{$article->quantite}}</td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
@@ -84,10 +86,15 @@
 
                     </div>
                     <div class="mb-6">
-                        <label for="prix" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix</label>
-                        <input type="text" id="prix" name="prix" value="{{$article->prix}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XXXXXXXXXXXXXXX" disabled>
+                        <label for="prix_achat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix Achat</label>
+                        <input type="text" id="prix_achat" name="prix_achat" value="{{$article->prix_achat}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XXXXXXXXXXXXXXX" disabled>
 
                     </div>
+                    <div class="mb-6">
+                      <label for="prix_vente" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix Vente</label>
+                      <input type="text" id="prix_vente" name="prix_vente" value="{{$article->prix_vente}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XXXXXXXXXXXXXXX" disabled>
+
+                  </div>
                     <div class="mb-6">
                       <label for="quantite" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantité</label>
                       <input type="number" min="0" id="quantite" name="quantite" value="{{$article->quantite}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XXXXXXXXXXXXXXX" disabled>
