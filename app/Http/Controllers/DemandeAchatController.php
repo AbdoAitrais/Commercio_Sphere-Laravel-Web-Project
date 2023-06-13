@@ -15,7 +15,7 @@ class DemandeAchatController extends Controller
     public function index()
     {
 
-        $demandeachats = DemandeAchat::latest()->filter(request(['date', 'etat']));
+        $demandeachats = DemandeAchat::latest()->filter(request(['date', 'etat']))->paginate(5);
 
         
 
@@ -34,7 +34,7 @@ class DemandeAchatController extends Controller
 
         // return $pdfBase64Array and demandeachats to the view
         return view('demandeachats.index', [
-            'demandeachats' => $demandeachats->paginate(5),
+            'demandeachats' => $demandeachats,
             'pdfBase64Array' => $pdfBase64Array ?? [],
             'filters' => [
                 'date' => request('date'),

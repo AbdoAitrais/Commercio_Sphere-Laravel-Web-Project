@@ -94,6 +94,12 @@ Route::post('storefournisseurs', [FournisseurController::class, 'store'])->name(
 // All Articles
 Route::get('articles', [ArticleController::class, 'index'])->name('articles.index')->middleware('auth');
 
+// All Articles in stock
+Route::get('articlesinstock', [ArticleController::class, 'fetchAllInStock'])->name('articles.articlesInStock')->middleware('auth');
+
+// All Articles frequently used
+Route::get('articlesfrequent', [ArticleController::class, 'fetchAllFrequent'])->name('articles.articlesFrequent')->middleware('auth');
+
 // Create Article
 Route::get('articles/create', [ArticleController::class, 'create'])->name('articles.create')->middleware('auth');
 

@@ -1,3 +1,4 @@
+
 <x-layout>
   <style>
     .active {
@@ -65,6 +66,14 @@
               </button>
             </li>
             <li class="mr-2">
+              
+              <button data-etat="Facture" class="inline-block p-4 rounded-t-lg  hover:bg-gray-100 {{$filters['etat'] == 'Facture' ? 'active' : ''}}" type="submit">
+                <span class=" bg-purple-700 text-white pl-1 pr-1 pt-0.5 pb-1">
+                  Facturé ({{$etatArray['Facture'] ?? 0}})
+                </span>
+              </button>
+            </li>
+            <li class="mr-2">
                 
                 <button data-etat="Brouillon" class="inline-block p-4 rounded-t-lg hover:bg-gray-100 {{$filters['etat'] == 'Brouillon' ? 'active' : ''}}" type="submit">
                   <span class=" bg-gray-600 text-white pl-1 pr-1 pt-0.5 pb-1">
@@ -94,6 +103,7 @@
           <thead>
             <tr>
               <th>Id</th>
+              <th>Numero</th>
               <th>Date</th>
               <th>Etat</th>
               <th></th>
@@ -101,39 +111,40 @@
           </thead>
           <tbody>
 
-            @unless ($devis->isEmpty())
+            @unless ($Lesdevis->isEmpty())
 
-            @foreach ($devis as $demandeachat)
+            @foreach ($Lesdevis as $devis)
             <tr>
-              <td data-label="Id">{{$demandeachat->id}}</td>
-              <td data-label="Date">{{$demandeachat->date}}</td>
+              <td data-label="Id">{{$devis->id}}</td>
+              <td data-label="Date">{{$devis->numero}}</td>
+              <td data-label="Date">{{$devis->date}}</td>
               <td data-label="Description">
                 <span class="{{
                   // use the ternary operator to return the corresponding color
-                  $demandeachat->etat == 'En cours' ? 'bg-blue-500' : ($demandeachat->etat == 'Approuve' ? 'bg-green-600' : ($demandeachat->etat == 'Brouillon' ? 'bg-gray-600' : ($demandeachat->etat == 'Rejete' ? 'bg-yellow-500' : 'bg-red-600')))
-                  }} text-white pl-1 pr-1 pt-0.5 pb-1">{{$demandeachat->etat}}</span>
+                  $devis->etat == 'En cours' ? 'bg-blue-500' : ($devis->etat == 'Approuve' ? 'bg-green-600' : ($devis->etat == 'Facture' ? 'bg-purple-700' : ($devis->etat == 'Brouillon' ? 'bg-gray-600' : ($devis->etat == 'Rejete' ? 'bg-yellow-500' : 'bg-red-600'))))
+                  }} text-white pl-1 pr-1 pt-0.5 pb-1">{{$devis->etat}}</span>
               </td>
               <td class="actions-cell">
                 <div class="buttons right nowrap">
-                  <a href="{{route('devis.pdf',['demandeachat'=>$demandeachat->id])}}" target="_blank">
-                    <button class="button small bg-gray-500" data-target="sample-modal-pdf-{{$demandeachat->id}}" type="button" title="document">
+                  <a href="{{route('devis.pdf',['devis'=>$devis->id])}}" target="_blank">
+                    <button class="button small bg-gray-500" data-target="sample-modal-pdf-{{$devis->id}}" type="button" title="document">
                       <span class="icon"><i class="fa-regular fa-file-pdf text-white"></i></span>   
                     </button>
                   </a>
-                  <button class="button small blue --jb-modal" data-target="sample-modal-2{{$demandeachat->id}}" type="button" title="details">
+                  <button class="button small blue --jb-modal" data-target="sample-modal-2{{$devis->id}}" type="button" title="details">
                     <span class="icon"><i class="fa fa-eye"></i></span>
                   </button>
-                  <a href="{{route('devis.edit',['demandeachat'=>$demandeachat->id])}}">
+                  <a href="{{route('devis.edit',['devis'=>$devis->id])}}">
                     <button class="button small green" type="button" title="modifier">
                       <span class="icon"><i class="fa fa-pen"></i></span>   
                     </button>
                   </a>
-                  <button class="button small red --jb-modal" data-target="sample-modal-{{$demandeachat->id}}" type="button" title="supprimer">
+                  <button class="button small red --jb-modal" data-target="sample-modal-{{$devis->id}}" type="button" title="supprimer">
                     <span class="icon"><i class="fa fa-trash-can"></i></span>
                   </button>
                 </div>
                 {{-- Details Modal --}}
-                <div id="sample-modal-2{{$demandeachat->id}}" class="modal">
+                <div id="sample-modal-2{{$devis->id}}" class="modal">
                   <div class="modal-background --jb-modal-close"></div>
                   <div class="modal-card">
                     <header class="modal-card-head">
@@ -143,57 +154,70 @@
                       <div class="font-bold text-xl mb-2">
                         Details de la demande d'achat
                       </div>
+                      <div class="mb-6">
+                        <label for="numero" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Numero</label>
+                        <input type="text" id="numero" name="numero" value="{{$devis->numero}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" disabled>
+
+                      </div>
 
                       <div class="mb-6">
                         <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date</label>
-                        <input type="text" id="date" name="date" value="{{$demandeachat->date}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" disabled>
+                        <input type="text" id="date" name="date" value="{{$devis->date}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" disabled>
 
                       </div>
                       <div class="mb-6">
                           <label for="etat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Etat</label>
-                          <input type="text" id="etat" name="etat" value="{{$demandeachat->etat}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" disabled>
+                          <input type="text" id="etat" name="etat" value="{{$devis->etat}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" disabled>
                       </div>
                       
-                      @foreach ($demandeachat->ligneVentes as $ligneVente)
+                      @foreach ($devis->ligneDevis as $ligneDevis)
                       <div class="font-bold text-xl mb-2">
                         Article {{$loop->iteration}}
                       </div>
                         <div class="mb-6">
                           <label for="titre{{$loop->iteration}}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Titre</label>
-                          <input type="text" id="titre{{$loop->iteration}}" name="titre" value="{{$ligneVente->article->titre}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" disabled>
+                          <input type="text" id="titre{{$loop->iteration}}" name="titre" value="{{$ligneDevis->article->titre}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" disabled>
 
                         </div>
                         <div class="mb-6">
                             <label for="description{{$loop->iteration}}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                            <input type="text" id="description{{$loop->iteration}}" name="description" value="{{$ligneVente->article->description}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" disabled>
+                            <input type="text" id="description{{$loop->iteration}}" name="description" value="{{$ligneDevis->article->description}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" disabled>
                         </div>
                         <div class="mb-6">
                           <label for="quantite{{$loop->iteration}}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantité</label>
-                          <input type="number" min="0" id="quantite{{$loop->iteration}}" name="quantite" value="{{$ligneVente->quantite}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XXXXXXXXXXXXXXX" disabled>
+                          <input type="number" min="0" id="quantite{{$loop->iteration}}" name="quantite" value="{{$ligneDevis->quantite}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XXXXXXXXXXXXXXX" disabled>
+                        </div>
+                        <div class="mb-6">
+                          <label for="prix_vente{{$loop->iteration}}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix Vente</label>
+                          <input type="number" min="0" id="prix_vente{{$loop->iteration}}" name="prix_vente" value="{{$ligneDevis->article->prix_vente}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XXXXXXXXXXXXXXX" disabled>
+                        </div>
+                        <div class="mb-6">
+                          <label for="prix_achat{{$loop->iteration}}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix Achat</label>
+                          <input type="number" min="0" id="prix_achat{{$loop->iteration}}" name="prix_achat" value="{{$ligneDevis->article->prix_achat}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XXXXXXXXXXXXXXX" disabled>
                         </div>
                       @endforeach
                   
                     </section>
                     <footer class="modal-card-foot">
-                      <button class="button --jb-modal-close">Cancel</button>
-                      <button class="button blue --jb-modal-close">Confirm</button>
+                      <button class="button --jb-modal-close">Annulé</button>
+                      <button class="button blue --jb-modal-close">Confirmer</button>
                     </footer>
                   </div>
                 </div>
                 {{-- Delete Modal --}}
-                <div id="sample-modal-{{$demandeachat->id}}" class="modal">
+                <div id="sample-modal-{{$devis->id}}" class="modal">
                   <div class="modal-background --jb-modal-close"></div>
                   <div class="modal-card">
                     <header class="modal-card-head">
                       <p class="modal-card-title">Suppression</p>
                     </header>
                     <section class="modal-card-body">
-                      <p>Vous etes sur vous voulez supprimez le demandeachat <b>{{$demandeachat->date}}</b> ?</p>
-                      <p>Clickez <b>Confirmer</b> pour proceder la suppression du demandeachat</p>
+                      <p>Vous etes sur vous voulez supprimez le devis <b>{{$devis->date}}</b> ?</p>
+                      <p>Clickez <b>Confirmer</b> pour proceder la suppression du devis</p>
                     </section>
                     <footer class="modal-card-foot">
                       <button class="button --jb-modal-close">Annuler</button>
-                      <form method="POST" action="{{route('devis.destroy',['demandeachat'=>$demandeachat->id])}}">
+                      <form method="POST" action="{{route('devis.destroy',['devis'=>$devis->id])}}">
                         @csrf
                         @method('DELETE')
                         <button class="button red --jb-modal-close">Confirmer</button>
@@ -202,14 +226,14 @@
                   </div>
                 </div>
                 {{-- PDF Modal --}}
-                {{-- <div id="sample-modal-pdf-{{$demandeachat->id}}" class="modal">
+                {{-- <div id="sample-modal-pdf-{{$devis->id}}" class="modal">
                   <div class="modal-background --jb-modal-close"></div>
                   <div class="modal-card">
                     <header class="modal-card-head">
                       <p class="modal-card-title">PDF</p>
                     </header>
                     <section class="modal-card-body">
-                      <iframe id="pdfContainer{{ $demandeachat->id }}" width="100%" height="500px" frameborder="0">
+                      <iframe id="pdfContainer{{ $devis->id }}" width="100%" height="500px" frameborder="0">
                         
                       </iframe>
                     </section>
@@ -244,7 +268,7 @@
           </tbody>
         </table>
 
-        {{$devis->links()}}
+        {{$Lesdevis->links()}}
       </div>
     </div>
   </section>
@@ -307,12 +331,12 @@
 {{-- @push('scripts')
     <script>
         $(document).ready(function() {
-            @foreach ($devis as $demandeachat)
-                $('#sample-modal-pdf-{{ $demandeachat->id }}').on('show.bs.modal', function(event) {
+            @foreach ($devis as $devis)
+                $('#sample-modal-pdf-{{ $devis->id }}').on('show.bs.modal', function(event) {
                     var modal = $(this);
-                    var pdfBase64 = '{{ $pdfBase64Array[$demandeachat->id] }}';
+                    var pdfBase64 = '{{ $pdfBase64Array[$devis->id] }}';
 
-                    modal.find('#pdfContainer{{ $demandeachat->id }}').attr('src', 'data:application/pdf;base64,' + pdfBase64);
+                    modal.find('#pdfContainer{{ $devis->id }}').attr('src', 'data:application/pdf;base64,' + pdfBase64);
                 });
             @endforeach
         });

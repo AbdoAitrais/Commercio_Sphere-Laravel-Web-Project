@@ -15,26 +15,17 @@ class DevisController extends Controller
     public function index()
     {
 
-        $devis = Devis::latest()->filter(request(['date', 'etat']));
-
+        $Lesdevis = Devis::latest()->filter(request(['date', 'etat']))->paginate(5);
         
-
-        // // generate the pdf as base64 string for each devis
-        // foreach ($devis->get() as $devis) {
-        //     $pdfBase64Array[$devis->id] = $this->pdfBase64($devis);
-        // }
-
-        // make an array of each etat and the number of devis with this etat
+        // make an array of each etat and the number of Lesdevis with this etat
         $etatArray = [];
         foreach (Devis::all() as $devis) {
             $etatArray[$devis->etat] = $devis->where('etat', $devis->etat)->count();
         }
-        
-        
 
-        // return $pdfBase64Array and devis to the view
+        // return $pdfBase64Array and Lesdevis to the view
         return view('devis.index', [
-            'devis' => $devis->paginate(5),
+            'Lesdevis' => $Lesdevis,
             'pdfBase64Array' => $pdfBase64Array ?? [],
             'filters' => [
                 'date' => request('date'),
@@ -43,6 +34,7 @@ class DevisController extends Controller
             'etatArray' => $etatArray,
         ]);
     }
+
 
     // Show a single devis
     public function show(Devis $devis)
@@ -67,14 +59,15 @@ class DevisController extends Controller
         $formFields = $request->validate([
             'date' => 'required',
             'remarque' => 'nullable',
-            'numero' => 'required|unique:demande_achats',
+            'numero' => 'required',
+            'etat' => 'required',
+            'client_id' => 'required',
             'articles.*.titre' => 'required',
             'articles.*.description' => 'required',
             'articles.*.code' => 'nullable',
             'articles.*.quantite' => ['required','numeric','min:0'],
             'articles.*.prix_achat' => ['required','numeric','min:0'],
             'articles.*.prix_vente' => ['required','numeric','min:0'],
-
         ]);
 
 
@@ -90,7 +83,7 @@ class DevisController extends Controller
             ]);
 
             // delete the articles that aren't in the form 
-            $devis->virtuelLigneAchats()->whereNotIn('article_id', array_column($formFields['articles'], 'id'))->delete();
+            $devis->ligneDevis()->whereNotIn('article_id', array_column($formFields['articles'], 'id'))->delete();
 
             // update or create the articles
             foreach ($formFields['articles'] as $article) {
@@ -147,6 +140,8 @@ class DevisController extends Controller
         $formFields = $request->validate([
             'date' => 'required',
             'remarque' => 'nullable',
+            'numero' => 'required',
+            'client_id' => 'required',
             'articles.*.titre' => 'required',
             'articles.*.description' => 'required',
             'articles.*.code' => 'nullable',
@@ -170,6 +165,7 @@ class DevisController extends Controller
                 'etat' => $formFields['etat'],
                 'numero' => $formFields['numero'],
                 'remarque' => $formFields['remarque'] ?? null,
+                'client_id' => $formFields['client_id'],
             ]);
 
             // save the articles

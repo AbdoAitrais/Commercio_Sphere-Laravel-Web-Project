@@ -16,6 +16,24 @@ class ArticleController extends Controller
         ]);
     }
 
+    // show all articles in stock in json
+    public function fetchAllInStock()
+    {
+        // use scopeInStock to get articles in stock
+        return response()->json([
+            'articles' => Article::inStock()->get(),
+        ]);
+    }
+
+    // show frequent articles in json
+    public function fetchAllFrequent()
+    {
+        // use scopeFrequentlyUsed to get frequent articles
+        return response()->json([
+            'articles' => Article::frequentlyUsed()->get(),
+        ]);
+    }
+
     // Show a single article
     public function show(Article $article)
     {

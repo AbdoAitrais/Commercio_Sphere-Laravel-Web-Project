@@ -118,3 +118,103 @@ if(Math.ceil(nb) != nb){
     return numberToLetter;
 
 }
+
+
+
+// autocompleteArticleInStock
+function autocompleteArticleInStock(inp, arr) {
+    var currentFocus;
+    console.log(arr);
+    inp.on("input", function(e) {
+    var val = $(this).val();
+    closeAllLists();
+    if (!val) {
+        return false;
+    }
+    currentFocus = -1;
+    var div = $("<div class='absolute z-10 border border-gray-300 bg-white text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>")
+        .addClass("autocompleteClients-items")
+        .appendTo(inp.parent());
+    
+    for (var i = 0; i < arr.length; i++) {
+        
+        if (arr[i].description.toUpperCase().includes(val.toUpperCase())
+        // arr[i].description.substr(0, val.length).toUpperCase() == val.toUpperCase()
+        ) {
+            // wrap the substring in strong tags
+            var object = arr[i];
+            var string = arr[i].description.substr(0, arr[i].description.toLowerCase().indexOf(val.toLowerCase()));
+            string += "<strong>" + arr[i].person.nom.substr(arr[i].description.toLowerCase().indexOf(val.toLowerCase()), val.length) + "</strong>";
+            string += arr[i].description.substr(arr[i].description.toLowerCase().indexOf(val.toLowerCase()) + val.length);
+            
+            var item = $("<div class='border-t p-2 hover:bg-gray-200 cursor-pointer'>")
+                .append(string)
+                .data('article', object)
+                .on("click", function() {
+                inp.val($(this).text());
+                // remove article details div if it exists
+                $("#articlestock-details-div").remove();
+                // add article details to the article details div
+                var article = $(this).data('article');
+                // add id to the article id input
+                $("#stockarticle_id").val(article.id);
+                var details = `<div id="articlestock-details-div" class="flex flex-col">
+                                <strong >` +article.title + `</strong>
+                                <span class="text-sm font-semibold">`+article.description+`</span>
+                                <span class="text-sm font-semibold">`+article.price+`</span>
+                                <span class="text-sm font-semibold">`+article.quantity+`</span>
+                    </div>`;
+
+                $(details).appendTo("#stockarticles-infos-div");
+                // add article id to the article id input
+                
+                closeAllLists();
+                });
+            item.appendTo(div);
+        }
+    }
+    });
+
+    inp.on("keydown", function(e) {
+    var x = $(".autocompleteClients-items div");
+    if (e.keyCode == 40) {
+        // arrow down
+        currentFocus++;
+        addActive(x);
+    } else if (e.keyCode == 38) {
+        // arrow up
+        currentFocus--;
+        addActive(x);
+    } else if (e.keyCode == 13) {
+        // enter
+        e.preventDefault();
+        if (currentFocus > -1) {
+        if (x) {
+            x[currentFocus].click();
+        }
+        }
+    }
+    });
+
+    function addActive(x) {
+    if (!x) return false;
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = x.length - 1;
+    x[currentFocus].classList.add("autocompleteClients-active");
+    }
+
+    function removeActive(x) {
+    for (var i = 0; i < x.length; i++) {
+        x[i].classList.remove("autocompleteClients-active");
+    }
+    }
+
+    function closeAllLists(elmnt) {
+    $(".autocompleteClients-items").remove();
+    }
+
+    $(document).on("click", function(e) {
+    closeAllLists(e.target);
+    });
+}

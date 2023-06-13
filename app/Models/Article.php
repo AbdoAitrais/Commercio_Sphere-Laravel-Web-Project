@@ -23,6 +23,21 @@ class Article extends Model
         }
     }
 
+    // all articles in stock
+    public static function scopeInStock($query)
+    {
+        // get articles that have quantity not null and greater than 0
+        return $query->whereNotNull('quantite')
+                     ->where('quantite', '>', 0);
+    }
+
+    // all articles frequently used in devis
+    public static function scopeFrequentlyUsed($query)
+    {
+        // get articles that have relation with LineDevis
+        return $query->whereHas('ligneDevis');
+    }
+
     // make relation with LigneAchat
     public function ligneAchats()
     {

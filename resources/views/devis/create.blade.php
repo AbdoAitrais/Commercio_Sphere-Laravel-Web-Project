@@ -75,36 +75,26 @@
                               
                             <div>
                                 <div id="client-infos-div" class="relative z-0 w-full mb-6 group">
-                                <div  class="mb-6 z-0">
-                                    <label for="search_client" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Client <span class="text-red-600">*</span></label>
-                                    <div class="flex w-full z-0">
-                                        <div class=" flex-grow z-0">
-                                            <input type="text" id="search_client" name="search_client" value="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Chercher Client" required>
-                                            <input type="hidden" name="client_id" id="client_id">
-                                        </div>
-                                        {{-- search button --}}
-                                        <div class="flex-grow-0 ml-2">
-                                            <button class="remove-article-btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-3 border border-blue-500 hover:border-transparent rounded-2xl mb-6" type="button">
-                                                <span class="icon"><i class="fa fa-search"></i></span>
-                                            </button>  
-                                            <button class="remove-article-btn bg-transparent bg-blue-500 font-semibold text-white py-1 px-3 border border-blue-500 hover:border-transparent rounded-2xl mb-6" type="button">
-                                                <span class="icon"><i class="fa fa-plus"></i></span>
-                                            </button> 
+                                    <div  class="mb-6 z-0">
+                                        <label for="search_client" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Client <span class="text-red-600">*</span></label>
+                                        <div class="flex w-full z-0">
+                                            <div class=" flex-grow z-0">
+                                                <input type="text" id="search_client" name="search_client" value="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Chercher Client" required>
+                                                <input type="hidden" name="client_id" id="client_id">
+                                            </div>
+                                            {{-- search button --}}
+                                            <div class="flex-grow-0 ml-2">
+                                                <button class="remove-article-btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-3 border border-blue-500 hover:border-transparent rounded-2xl mb-6" type="button">
+                                                    <span class="icon"><i class="fa fa-search"></i></span>
+                                                </button>  
+                                                <button class="remove-article-btn bg-transparent bg-blue-500 font-semibold text-white py-1 px-3 border border-blue-500 hover:border-transparent rounded-2xl mb-6" type="button">
+                                                    <span class="icon"><i class="fa fa-plus"></i></span>
+                                                </button> 
+                                            </div>
                                         </div>
                                     </div>
-
-                                    @error('search_client')
-                                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                                    @enderror
-                                </div>
-                                <div class="mb-6">
-                                    <label class="block mb-2 text-sm text-gray-900 dark:text-white font-bold">{{ isset($client) ? $client->nom : "" }}</label>
-                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ isset($client) ? $client->prenom : "" }}</label>
-                                    
                                     
                                 </div>
-                                
-                            </div>
                             </div>
                             
                             
@@ -310,9 +300,77 @@
                         @endunless
                       <hr>
                       <div class="mt-5 md:w-full lg:w-full flex justify-center">
-                        <button id="add-article-btn" class="m-2 md:w-full lg:w-auto hidden md:block bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Ajouter</button>
-                        <button class="m-2 md:w-full lg:w-auto hidden md:block bg-transparent hover:bg-gray-500 text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded">Ajouter à partir de produit</button>
-                        <button class="m-2 md:w-full lg:w-auto hidden md:block bg-transparent hover:bg-gray-500 text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded">Ajouter à partit de stock</button>
+                        <button type="button" id="add-article-btn" class="m-2 md:w-full lg:w-auto hidden md:block bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Ajouter</button>
+                        <button type="button" id="show-sample-modal-frequent-product" class="m-2 md:w-full lg:w-auto hidden md:block bg-transparent hover:bg-gray-500 text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded">Ajouter à partir de produit</button>
+                        <button type="button" id="show-sample-modal-stock-product" class="m-2 md:w-full lg:w-auto hidden md:block bg-transparent hover:bg-gray-500 text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent rounded">Ajouter à partit de stock</button>
+                    </div>
+                    {{-- Frequent Product Modal --}}
+                    <div id="sample-modal-frequent-product" class="modal">
+                        <div class="modal-background --jb-modal-close"></div>
+                        <div class="modal-card">
+                        <header class="modal-card-head">
+                            <p class="modal-card-title">Recherche</p>
+                        </header>
+                        <section id="stockarticles-infos-div" class="modal-card-body">
+                            <div class="font-bold text-xl mb-2">
+                                Chercher un produit fréquent
+                            </div>
+    
+                            <div class="flex w-full z-0">
+                                <div class=" flex-grow z-0">
+                                    <input type="text" id="search_article_frequent" name="search_article_frequent" value="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Chercher Article">
+
+                                </div>
+                                {{-- search button --}}
+                                <div class="flex-grow-0 ml-2">
+                                    <button type="button" class="remove-article-btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-3 border border-blue-500 hover:border-transparent rounded-2xl mb-6" type="button">
+                                        <span class="icon"><i class="fa fa-search"></i></span>
+                                    </button>  
+                                    <button type="button" class="remove-article-btn bg-transparent bg-blue-500 font-semibold text-white py-1 px-3 border border-blue-500 hover:border-transparent rounded-2xl mb-6" type="button">
+                                        <span class="icon"><i class="fa fa-plus"></i></span>
+                                    </button> 
+                                </div>
+                            </div>
+                        </section>
+                        <footer class="modal-card-foot">
+                            <button type="button" class="button --jb-modal-close">Annulé</button>
+                            <button type="button" class="button blue --jb-modal-close">Confirmer</button>
+                        </footer>
+                        </div>
+                    </div>
+                    {{-- Stock Product Modal --}}
+                    <div id="sample-modal-stock-product" class="modal">
+                        <div class="modal-background --jb-modal-close"></div>
+                        <div class="modal-card">
+                        <header class="modal-card-head">
+                            <p class="modal-card-title">Recherche</p>
+                        </header>
+                        <section id="frequentarticles-infos-div" class="modal-card-body">
+                            <div class="font-bold text-xl mb-2">
+                                Chercher un article en stock
+                            </div>
+    
+                            <div class="flex w-full z-0">
+                                <div class=" flex-grow z-0">
+                                    <input type="text" id="search_article_stock" name="search_article_stock" value="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Chercher Article">
+                                </div>
+                                {{-- search button --}}
+                                <div class="flex-grow-0 ml-2">
+                                    <button type="button" class="remove-article-btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-3 border border-blue-500 hover:border-transparent rounded-2xl mb-6" type="button">
+                                        <span class="icon"><i class="fa fa-search"></i></span>
+                                    </button>  
+                                    <button type="button" class="remove-article-btn bg-transparent bg-blue-500 font-semibold text-white py-1 px-3 border border-blue-500 hover:border-transparent rounded-2xl mb-6" type="button">
+                                        <span class="icon"><i class="fa fa-plus"></i></span>
+                                    </button> 
+                                </div>
+                            </div>
+                        
+                        </section>
+                        <footer class="modal-card-foot">
+                            <button type="button" class="button --jb-modal-close">Annulé</button>
+                            <button type="button" class="button blue --jb-modal-close">Confirmer</button>
+                        </footer>
+                        </div>
                     </div>
                 </x-card-content>
             </x-card>    
@@ -407,62 +465,58 @@
     $("#add-article-btn").click(function() {
         
         var newRow = `
-        <tr class=" h-20">
-                            <td data-label="Titre">
-                                <div class="mb-6">
-                                    <input type="text" id="titre" name="articles[`+addressCount+`][titre]" value="{{old('titre')}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
-                                </div>
-                            </td>
-                            <td data-label="Description">
-                                <div class="mb-6">
-                                    <textarea type="text" id="description" name="articles[`+addressCount+`][description]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>{{old('description')}}</textarea>
-
-                                </div>       
-                            </td>
-                            <td data-label="Prix Vente">
-                                <div class="mb-6">
-                                    <input type="number" id="prix_vente" name="articles[`+addressCount+`][prix_vente]" value="{{old('prix_vente') ? old('prix_vente') : 0.00}}" class="prix_vente bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
-
-                                </div>    
-                            </td>
-                            <td data-label="Prix Achat">
-                                <div class="mb-6">
-                                    <input type="number" id="prix_achat" name="articles[`+addressCount+`][prix_achat]" value="{{old('prix_achat') ? old('prix_achat') : 0.00}}" class="prix_achat bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
-
-                                </div>
-                            </td>
-                            <td data-label="Quantité">
-                                <div class="mb-6">
-                                    <input type="number" id="quantite" name="articles[`+addressCount+`][quantite]" value="{{old('quantite') ? old('quantite') : 1}}" class="quantite bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
-
-                                </div>
-                            </td>
-                            <td data-label="Taxe">
-                                <div class="mb-6">
-                                    <select id="taxe" name="taxe" class="taxe bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-30 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                                        <option value="0">0%</option>
-                                        <option value="0.07">7%</option>
-                                        <option value="0.1">10%</option>
-                                        <option value="0.2" selected>20%</option>
-                                    </select>
-                                </div>
-                            </td>
-                            <td data-label="P.H.T">
-                                <div class="mb-6">
-                                    <input type="number" id="pht" name="pht" value="{{old('pht') ? old('pht') : 0.00}}" class="pht bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
-                                </div>
-                            </td>
-                            <td data-label="Marge">
-                                <div class="mb-6">
-                                    <input type="marge" id="marge" name="marge" value="{{old('marge') ? old('marge') : 0.00}}" class="marge bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
-                                </div>
-                            </td>
-                            <td>
-                                <button class="remove-article-btn bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-1 px-3 border border-red-500 hover:border-transparent rounded-2xl mb-6" type="button">
-                                    <span class="icon"><i class="fa fa-trash-can"></i></span>
-                                </button>     
-                            </td>
-                        </tr>
+        <tr class="">
+            <td data-label="Titre">
+                <div class="mb-6">
+                    <input type="text" id="titre" name="articles[`+addressCount+`][titre]" value="{{old('titre')}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+                </div>
+            </td>
+            <td data-label="Description">
+                <div class="mb-6">
+                    <textarea type="text" id="description" name="articles[`+addressCount+`][description]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>{{old('description')}}</textarea>
+                </div>
+            </td>
+            <td data-label="Prix Vente">
+                <div class="mb-6">
+                    <input type="number" id="prix_vente" name="articles[`+addressCount+`][prix_vente]" value="{{old('prix_vente') ? old('prix_vente') : 0.00}}" class="prix_vente bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
+                </div>    
+            </td>
+            <td data-label="Prix Achat">
+                <div class="mb-6">
+                    <input type="number" id="prix_achat" name="articles[`+addressCount+`][prix_achat]" value="{{old('prix_achat') ? old('prix_achat') : 0.00}}" class="prix_achat bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
+                </div>
+            </td>
+            <td data-label="Quantité">
+                <div class="mb-6">
+                    <input type="number" id="quantite" name="articles[`+addressCount+`][quantite]" value="{{old('quantite') ? old('quantite') : 1}}" class="quantite bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
+                </div>
+            </td>
+            <td data-label="Taxe">
+                <div class="mb-6">
+                    <select id="taxe" name="taxe" class="taxe bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-30 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        <option value="0">0%</option>
+                        <option value="0.07">7%</option>
+                        <option value="0.1">10%</option>
+                        <option value="0.2" selected>20%</option>
+                    </select>
+                </div>
+            </td>
+            <td data-label="P.H.T">
+                <div class="mb-6">
+                    <input type="number" id="pht" name="pht" value="{{old('pht') ? old('pht') : 0.00}}" class="pht bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
+                </div>
+            </td>
+            <td data-label="Marge">
+                <div class="mb-6">
+                    <input type="marge" id="marge" name="marge" value="{{old('marge') ? old('marge') : 0.00}}" class="marge bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
+                </div>
+            </td>
+            <td>
+                <button class="remove-article-btn bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-1 px-3 border border-red-500 hover:border-transparent rounded-2xl mb-6" type="button">
+                    <span class="icon"><i class="fa fa-trash-can"></i></span>
+                </button>     
+            </td>
+            </tr>
         `;
         addressCount++;
         // Append the new row to the table
@@ -610,13 +664,6 @@
             $("#towords").val(towords);
         });
 
-
-        
-
-
-
-
-
     });
 
     // Handle dynamically added row remove button click event
@@ -630,7 +677,7 @@
     }
 
     // search client
-    function autocomplete(inp, arr) {
+    function autocompleteClients(inp, arr) {
         var currentFocus;
         var name = "data";
         console.log(arr);
@@ -642,7 +689,7 @@
         }
         currentFocus = -1;
         var div = $("<div class='absolute z-10 border border-gray-300 bg-white text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>")
-            .addClass("autocomplete-items")
+            .addClass("autocompleteClients-items")
             .appendTo(inp.parent());
         
         for (var i = 0; i < arr.length; i++) {
@@ -684,7 +731,7 @@
         });
 
         inp.on("keydown", function(e) {
-        var x = $(".autocomplete-items div");
+        var x = $(".autocompleteClients-items div");
         if (e.keyCode == 40) {
             // arrow down
             currentFocus++;
@@ -709,17 +756,17 @@
         removeActive(x);
         if (currentFocus >= x.length) currentFocus = 0;
         if (currentFocus < 0) currentFocus = x.length - 1;
-        x[currentFocus].classList.add("autocomplete-active");
+        x[currentFocus].classList.add("autocompleteClients-active");
         }
 
         function removeActive(x) {
         for (var i = 0; i < x.length; i++) {
-            x[i].classList.remove("autocomplete-active");
+            x[i].classList.remove("autocompleteClients-active");
         }
         }
 
         function closeAllLists(elmnt) {
-        $(".autocomplete-items").remove();
+        $(".autocompleteClients-items").remove();
         }
 
         $(document).on("click", function(e) {
@@ -735,25 +782,38 @@
       dataType: "json",
       success: function(data) {
         console.log(data.clients);
-        autocomplete($("#search_client"), data.clients);
+        autocompleteClients($("#search_client"), data.clients);
         // $.each(data.clients, function (indexInArray, valueOfElement) { 
         //      console.log(valueOfElement.person.addresses);
         // });
-        
+            
       }
     });
   }
-  fetchClients();  
+  fetchClients();
 
-  var clients = [
-    "Afghanistan",
-    "Albania",
-    "Algeria",
-    "Andorra"
-  ];
 
-  //autocomplete($("#search_client"), clients);
 
+  //autocompleteClients($("#search_client"), clients);
+
+    
+    // close modals on click on close button --jb-modal-close
+    $("#show-sample-modal-frequent-product").each(function(i, item) {
+        $(item).on("click", function() {
+            $("#sample-modal-frequent-product").show();
+        })
+    })
+    $("#show-sample-modal-stock-product").each(function(i, item) {
+        $(item).on("click", function() {
+            $("#sample-modal-stock-product").show();
+        })
+    })
+    $(".--jb-modal-close").each(function(i, item) {
+        $(item).on("click", function() {
+            $(".modal").hide();
+        })
+    })
+    
     
     });
 </script>

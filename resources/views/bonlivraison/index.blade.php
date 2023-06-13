@@ -89,8 +89,8 @@
                   
                     </section>
                     <footer class="modal-card-foot">
-                      <button class="button --jb-modal-close">Cancel</button>
-                      <button class="button blue --jb-modal-close">Confirm</button>
+                      <button class="button --jb-modal-close">Annulé</button>
+                      <button class="button blue --jb-modal-close">Confirmer</button>
                     </footer>
                   </div>
                 </div>
