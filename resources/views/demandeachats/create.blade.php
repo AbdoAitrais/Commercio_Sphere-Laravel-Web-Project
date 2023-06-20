@@ -115,7 +115,10 @@
                 </x-card-content>
             </x-card>     
 
-            <button class="m-2 md:w-full lg:w-auto hidden md:block bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" type="submit">Submit</button>
+            <div class="w-full flex justify-center">
+            <button class="m-2 md:w-full lg:w-auto hidden md:block bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" type="submit">Soumettre</button>
+
+            </div>
         </form>  
     </section>
     <x-nav-bar/>

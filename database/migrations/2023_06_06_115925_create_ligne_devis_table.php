@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('devis_id')->constrained('devis');
             $table->foreignId('article_id')->constrained('articles');
             $table->integer('quantite');
+            $table->double('tva')->nullable();
+            $table->double('prix_vente')->nullable();
             $table->timestamps();
         });
     }

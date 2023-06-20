@@ -8,6 +8,7 @@ use App\Models\Devis;
 use App\Models\LigneDevis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class DevisController extends Controller
 {
@@ -54,7 +55,7 @@ class DevisController extends Controller
 
     // Update the devis
     public function update(Request $request, Devis $devis) {
-        //dd($request->all() );
+        // dd($request->all() );
 
         $formFields = $request->validate([
             'date' => 'required',
@@ -68,6 +69,7 @@ class DevisController extends Controller
             'articles.*.quantite' => ['required','numeric','min:0'],
             'articles.*.prix_achat' => ['required','numeric','min:0'],
             'articles.*.prix_vente' => ['required','numeric','min:0'],
+            'articles.*.taxe' => 'required',
         ]);
 
 
@@ -88,7 +90,9 @@ class DevisController extends Controller
             // update or create the articles
             foreach ($formFields['articles'] as $article) {
                 $quantite = $article['quantite'];
+                $taxe = $article['taxe'];
                 unset($article['quantite']);
+                unset($article['taxe']);
                 
                 // Create or update the Article
                 $articleModel = Article::updateOrCreate($article);
@@ -99,6 +103,7 @@ class DevisController extends Controller
                     'devis_id' => $devis->id,
                 ], [
                     'quantite' => $quantite,
+                    'tva' => $taxe ?? 0.1,
                 ]);
             }
 
@@ -134,8 +139,7 @@ class DevisController extends Controller
 
     // Store the devis
     public function store(Request $request) {
-
-        //dd($request->all() );
+        // dd($request->all() );
 
         $formFields = $request->validate([
             'date' => 'required',
@@ -148,6 +152,7 @@ class DevisController extends Controller
             'articles.*.quantite' => ['required','numeric','min:0'],
             'articles.*.prix_achat' => ['required','numeric','min:0'],
             'articles.*.prix_vente' => ['required','numeric','min:0'],
+            'articles.*.taxe' => 'required',
 
         ]);
         
@@ -171,7 +176,9 @@ class DevisController extends Controller
             // save the articles
             foreach ($formFields['articles'] as $article) {
                 $quantite = $article['quantite'];
+                $taxe = $article['taxe'];
                 unset($article['quantite']);
+                unset($article['taxe']);
                 
                 // Create or update the Article
                 $articleModel = Article::updateOrCreate($article);
@@ -182,6 +189,7 @@ class DevisController extends Controller
                     'devis_id' => $devis->id,
                 ], [
                     'quantite' => $quantite,
+                    'tva' => $taxe ?? 0.1,
                 ]);
             }
             

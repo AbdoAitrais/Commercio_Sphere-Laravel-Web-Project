@@ -163,7 +163,7 @@
 
                                 <td data-label="Prix Vente">
                                     <div class="mb-6">
-                                        <input type="number" id="prix_vente" name="articles[{{ $index }}][prix_vente]" value="{{$ligneDevis->article->prix_vente}}" class="prix_vente bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
+                                        <input type="number" id="prix_vente" step="any" name="articles[{{ $index }}][prix_vente]" value="{{$ligneDevis->article->prix_vente}}" class="prix_vente bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
                                         @error('articles.'.$index.'.prix_vente]')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                         @enderror
@@ -171,7 +171,7 @@
                                 </td>
                                 <td data-label="Prix Achat">
                                     <div class="mb-6">
-                                        <input type="number" id="prix_achat" name="articles[{{ $index }}][prix_achat]" value="{{$ligneDevis->article->prix_achat}}" class="prix_achat bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
+                                        <input type="number" id="prix_achat" step="any" name="articles[{{ $index }}][prix_achat]" value="{{$ligneDevis->article->prix_achat}}" class="prix_achat bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
                                         @error('articles.'.$index.'.prix_achat]')
                                         <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                         @enderror
@@ -197,12 +197,12 @@
                                 </td>
                                 <td data-label="P.H.T">
                                     <div class="mb-6">
-                                        <input type="number" id="pht" name="pht" value="{{old('pht')}}" class="pht bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
+                                        <input type="number" id="pht" step="any" name="pht" value="{{old('pht')}}" class="pht bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
                                     </div>
                                 </td>
                                 <td data-label="Marge">
                                     <div class="mb-6">
-                                        <input type="number" id="marge" name="marge" value="{{old('marge')}}" class="marge bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
+                                        <input type="number" id="marge" step="any" name="marge" value="{{old('marge')}}" class="marge bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
                                     </div>
                                 </td>
                                 <td>
@@ -238,7 +238,7 @@
                         <header class="modal-card-head">
                             <p class="modal-card-title">Recherche</p>
                         </header>
-                        <section id="stockarticles-infos-div" class="modal-card-body">
+                        <section id="frequentarticles-infos-div" class="modal-card-body">
                             <div class="font-bold text-xl mb-2">
                                 Chercher un produit fréquent
                             </div>
@@ -272,7 +272,7 @@
                         <header class="modal-card-head">
                             <p class="modal-card-title">Recherche</p>
                         </header>
-                        <section id="frequentarticles-infos-div" class="modal-card-body">
+                        <section id="stockarticles-infos-div" class="modal-card-body">
                             <div class="font-bold text-xl mb-2">
                                 Chercher un article en stock
                             </div>
@@ -307,8 +307,8 @@
                     <div class="grid lg:grid-cols-2 md:gap-6 mt-5 md:grid-rows-1">
                         <div class="m-2">
                             <div class="m-1">
-                                <label for="towords" class=" underline">Arreté la présente demande d'achat (TTC):</label>
-                                <input type="text" id="towords" name="towords" value="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <label for="ttc_towords" class=" underline">Arreté la présente demande d'achat (TTC):</label>
+                                <input type="text" id="ttc_towords" name="ttc_towords" value="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             
                             </div>
                             <div class="m-1">
@@ -339,31 +339,31 @@
                             {{-- Inputs --}}
                             <div class="">
                                 <div class="flex p-2 border border-solid">
-                                    <input type="number" min="0" value="0" id="total_marge" class="rounded-none bg-gray-50 border text-gray-900 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5">
+                                    <input type="number" step="any" min="0" value="0" id="total_marge" class="rounded-none bg-gray-50 border text-gray-900 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5">
                                     <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-r-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                                         HT
                                     </span>
                                 </div>
                                 <div class="flex p-2 border border-solid">
-                                    <input type="number" min="0" value="0" id="achat" class="rounded-none bg-gray-50 border text-gray-900 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5">
+                                    <input type="number" step="any" min="0" value="0" id="achat" class="rounded-none bg-gray-50 border text-gray-900 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5">
                                     <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-r-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                                         HT
                                     </span>
                                 </div>
                                 <div class="flex p-2 border border-solid">
-                                    <input type="number" min="0" value="0" id="vente" class="rounded-none bg-gray-50 border text-gray-900 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5">
+                                    <input type="number" step="any" min="0" value="0" id="vente" class="rounded-none bg-gray-50 border text-gray-900 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5">
                                     <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-r-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                                         HT
                                     </span>
                                 </div>
                                 <div class="flex p-2 border border-solid">
-                                    <input type="number" min="0" value="0" id="tva" class="rounded-none bg-gray-50 border text-gray-900 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5">
+                                    <input type="number" step="any" min="0" value="0" id="tva" class="rounded-none bg-gray-50 border text-gray-900 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5">
                                     <span id="spantva" class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-r-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                                         TVA
                                     </span>
                                 </div>
                                 <div class="flex p-2 border border-solid">
-                                    <input type="number" min="0" value="0" id="ttc" class="rounded-none bg-gray-50 border text-red-600 font-bold block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5">
+                                    <input type="number" step="any" min="0" value="0" id="ttc" class="rounded-none bg-gray-50 border text-red-600 font-bold block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5">
                                     <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-r-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                                         TTC
                                     </span>
@@ -374,7 +374,10 @@
                 </x-card-content>
             </x-card>    
 
-            <button class="m-2 md:w-full lg:w-auto hidden md:block bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" type="submit">Submit</button>
+            <div class="w-full flex justify-center">
+            <button class="m-2 md:w-full lg:w-auto hidden md:block bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" type="submit">Soumettre</button>
+
+            </div>
         </form>  
     </section>
     <x-nav-bar/>
@@ -382,7 +385,6 @@
     <x-flash-message/>
     <x-aside/>
 </x-layout>
-<script async="" src="{{asset('scripts/towords.js')}}"></script>
 <script async="" src="{{asset('scripts/calculations.js')}}"></script>
 <script>
     $(document).ready(function() {
@@ -408,12 +410,12 @@
             </td>
             <td data-label="Prix Vente">
                 <div class="mb-6">
-                    <input type="number" id="prix_vente" name="articles[`+addressCount+`][prix_vente]" value="{{old('prix_vente') ? old('prix_vente') : 0.00}}" class="prix_vente bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
+                    <input type="number" step="any" id="prix_vente" name="articles[`+addressCount+`][prix_vente]" value="{{old('prix_vente') ? old('prix_vente') : 0.00}}" class="prix_vente bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
                 </div>    
             </td>
             <td data-label="Prix Achat">
                 <div class="mb-6">
-                    <input type="number" id="prix_achat" name="articles[`+addressCount+`][prix_achat]" value="{{old('prix_achat') ? old('prix_achat') : 0.00}}" class="prix_achat bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
+                    <input type="number" step="any" id="prix_achat" name="articles[`+addressCount+`][prix_achat]" value="{{old('prix_achat') ? old('prix_achat') : 0.00}}" class="prix_achat bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
                 </div>
             </td>
             <td data-label="Quantité">
@@ -433,12 +435,12 @@
             </td>
             <td data-label="P.H.T">
                 <div class="mb-6">
-                    <input type="number" id="pht" name="pht" value="{{old('pht') ? old('pht') : 0.00}}" class="pht bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
+                    <input type="number" id="pht" step="any" name="pht" value="{{old('pht') ? old('pht') : 0.00}}" class="pht bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
                 </div>
             </td>
             <td data-label="Marge">
                 <div class="mb-6">
-                    <input type="marge" id="marge" name="marge" value="{{old('marge') ? old('marge') : 0.00}}" class="marge bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
+                    <input type="marge" id="marge" step="any" name="marge" value="{{old('marge') ? old('marge') : 0.00}}" class="marge bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
                 </div>
             </td>
             <td>
@@ -612,6 +614,216 @@
             $(".modal").hide();
         })
     })
+
+
+    // autocompleteArticleInStock
+    function autocompleteArticle(inp, arr, article_type) {
+        var currentFocus;
+        // console.log(arr);
+        inp.on("input", function(e) {
+        var val = $(this).val();
+        closeAllLists();
+        if (!val) {
+            return false;
+        }
+        currentFocus = -1;
+        var div = $("<div class=' border border-gray-300 bg-white text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>")
+            .addClass("autocompleteArticles-items")
+            .appendTo(inp.parent());
+        
+        for (var i = 0; i < arr.length; i++) {
+            
+            if (arr[i].description.toUpperCase().includes(val.toUpperCase())
+            // arr[i].description.substr(0, val.length).toUpperCase() == val.toUpperCase()
+            ) {
+                // wrap the substring in strong tags
+                var object = arr[i];
+                var string = arr[i].description.substr(0, arr[i].description.toLowerCase().indexOf(val.toLowerCase()));
+                string += "<strong>" + arr[i].description.substr(arr[i].description.toLowerCase().indexOf(val.toLowerCase()), val.length) + "</strong>";
+                string += arr[i].description.substr(arr[i].description.toLowerCase().indexOf(val.toLowerCase()) + val.length);
+                
+                var item = $("<div class='border-t p-2 hover:bg-gray-200 cursor-pointer'>")
+                    .append(string)
+                    .data('article', object)
+                    .on("click", function() {
+                    inp.val($(this).text());
+                    // remove article details div if it exists
+                    $("#article"+article_type+"-details-div").remove();
+                    // add article details to the article details div
+                    var article = $(this).data('article');
+                    // add id to the article id input
+                    var addressCount = $("#article-container").children().length + 1;
+                                var newRow = `
+                    <tr class="">
+                        <td data-label="Titre">
+                            <div class="mb-6">
+                                <input type="text" id="titre" name="articles[`+addressCount+`][titre]" value="`+article.titre+`" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+                            </div>
+                        </td>
+                        <td data-label="Description">
+                            <div class="mb-6">
+                                <textarea type="text" id="description" name="articles[`+addressCount+`][description]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>`+article.description+`</textarea>
+                            </div>
+                        </td>
+                        <td data-label="Prix Vente">
+                            <div class="mb-6">
+                                <input type="number" id="prix_vente" name="articles[`+addressCount+`][prix_vente]" value="`+article.prix_vente+`" class="prix_vente bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
+                            </div>    
+                        </td>
+                        <td data-label="Prix Achat">
+                            <div class="mb-6">
+                                <input type="number" id="prix_achat" name="articles[`+addressCount+`][prix_achat]" value="`+article.prix_achat+`" class="prix_achat bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
+                            </div>
+                        </td>
+                        <td data-label="Quantité">
+                            <div class="mb-6">
+                                <input type="number" id="quantite" name="articles[`+addressCount+`][quantite]" value="{{old('quantite') ? old('quantite') : 1}}" class="quantite bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
+                            </div>
+                        </td>
+                        <td data-label="Taxe">
+                            <div class="mb-6">
+                                <select id="taxe" name="articles[`+addressCount+`][taxe]" class="taxe bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-30 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                    <option value="0">0%</option>
+                                    <option value="0.07">7%</option>
+                                    <option value="0.1">10%</option>
+                                    <option value="0.2" selected>20%</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td data-label="P.H.T">
+                            <div class="mb-6">
+                                <input type="number" id="pht" name="pht" value="{{old('pht') ? old('pht') : 0.00}}" class="pht bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
+                            </div>
+                        </td>
+                        <td data-label="Marge">
+                            <div class="mb-6">
+                                <input type="marge" id="marge" name="marge" value="{{old('marge') ? old('marge') : 0.00}}" class="marge bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" required>
+                            </div>
+                        </td>
+                        <td>
+                            <button class="remove-article-btn bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-1 px-3 border border-red-500 hover:border-transparent rounded-2xl mb-6" type="button">
+                                <span class="icon"><i class="fa fa-trash-can"></i></span>
+                            </button>     
+                        </td>
+                        </tr>
+                    `;
+                    var details = `<div id="article`+article_type+`-details-div" class="flex flex-col">
+                                    <strong >` +article.titre + `</strong>
+                                    <span class="text-sm font-semibold">`+article.description+`</span>
+                                    <span class="text-sm font-semibold">`+article.price+`</span>
+                                    <span class="text-sm font-semibold">`+article.quantity+`</span>
+                        </div>`;
+
+                    $(details).appendTo("#"+article_type+"articles-infos-div");
+                    // append new row
+                    $("#article-container").append(newRow);
+
+                    calculateOnLoad();
+                    calculateOnChange();
+                    
+                    closeAllLists();
+                    });
+                item.appendTo(div);
+            }
+        }
+        });
+
+        inp.on("keydown", function(e) {
+        var x = $(".autocompleteArticles-items div");
+        if (e.keyCode == 40) {
+            // arrow down
+            currentFocus++;
+            addActive(x);
+        } else if (e.keyCode == 38) {
+            // arrow up
+            currentFocus--;
+            addActive(x);
+        } else if (e.keyCode == 13) {
+            // enter
+            e.preventDefault();
+            if (currentFocus > -1) {
+            if (x) {
+                x[currentFocus].click();
+            }
+            }
+        }
+        });
+
+        function addActive(x) {
+        if (!x) return false;
+        removeActive(x);
+        if (currentFocus >= x.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = x.length - 1;
+        x[currentFocus].classList.add("autocompleteArticles-active");
+        }
+
+        function removeActive(x) {
+        for (var i = 0; i < x.length; i++) {
+            x[i].classList.remove("autocompleteArticles-active");
+        }
+        }
+
+        function closeAllLists(elmnt) {
+        $(".autocompleteArticles-items").remove();
+        }
+
+        $(document).on("click", function(e) {
+        closeAllLists(e.target);
+        });
+        
+    }
+
+    // fetch stock articles
+    function fetchArticles() {
+        $.ajax({
+        url: "{{ route('articles.articlesInStock') }}",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            // console.log(data.articles);
+
+            
+            // if data.articles is empty then show a message to the user
+            if(data.articles.length == 0) {
+                $("#stockarticles-infos-div").html("<span class='text-sm font-semibold'>Aucun article en stock</span>");
+            }else{
+                autocompleteArticle($("#search_article_stock"), data.articles, "stock");
+            }
+            // $.each(data.articles, function (indexInArray, valueOfElement) { 
+            //      console.log(valueOfElement.person.addresses);
+            // });
+                
+        }
+        });
+
+    }
+    fetchArticles();
+
+    // fetch frequent articles
+    function fetchFrequentArticles() {
+        $.ajax({
+        url: "{{ route('articles.articlesFrequent') }}",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            // console.log(data.articles);
+
+            
+            // if data.articles is empty then show a message to the user
+            if(data.articles.length == 0) {
+                $("#frequentarticles-infos-div").html("<span class='text-sm font-semibold'>Aucun article fréquent</span>");
+            }else{
+            autocompleteArticle($("#search_article_frequent"), data.articles, "frequent");
+            }
+            // $.each(data.articles, function (indexInArray, valueOfElement) { 
+            //      console.log(valueOfElement.person.addresses);
+            // });
+                
+        }
+        });
+
+    }
+    fetchFrequentArticles();
     
     
     });

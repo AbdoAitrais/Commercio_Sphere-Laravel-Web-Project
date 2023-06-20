@@ -13,9 +13,6 @@ return new class extends Migration
     {
         Schema::create('ligne_achats', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('article_id')->constrained('articles');
-            $table->integer('quantite');
-            $table->double('total');
             $table->timestamps();
         });
     }
@@ -25,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ligneachats');
+        Schema::dropIfExists('ligne_achats');
     }
 };
