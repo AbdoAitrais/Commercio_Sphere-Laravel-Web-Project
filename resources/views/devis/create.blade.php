@@ -316,30 +316,30 @@
                     <div id="sample-modal-stock-product" class="modal">
                         <div class="modal-background --jb-modal-close"></div>
                         <div class="modal-card">
-                        <header class="modal-card-head">
-                            <p class="modal-card-titre">Recherche</p>
-                        </header>
-                        <section id="stockarticles-infos-div" class="modal-card-body h-60">
-                            <div class="font-bold text-xl mb-2">
-                                Chercher un article en stock
-                            </div>
-    
-                            <div class="flex w-full z-0">
-                                <div class=" flex-grow z-0">
-                                    <input type="text" id="search_article_stock" name="search_article_stock" value="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Chercher Article">
+                            <header class="modal-card-head">
+                                <p class="modal-card-titre">Recherche</p>
+                            </header>
+                            <section id="stockarticles-infos-div" class="modal-card-body h-60">
+                                <div class="font-bold text-xl mb-2">
+                                    Chercher un article en stock
                                 </div>
-                                {{-- search button --}}
-                                <div class="flex-grow-0 ml-2">
-                                    
-                                    
+        
+                                <div class="flex w-full z-0">
+                                    <div class=" flex-grow z-0">
+                                        <input type="text" id="search_article_stock" name="search_article_stock" value="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Chercher Article">
+                                    </div>
+                                    {{-- search button --}}
+                                    <div class="flex-grow-0 ml-2">
+                                        
+                                        
+                                    </div>
                                 </div>
-                            </div>
-                        
-                        </section>
-                        <footer class="modal-card-foot">
-                            <button type="button" class="button --jb-modal-close">Annulé</button>
-                            <button type="button" class="button blue --jb-modal-close">Confirmer</button>
-                        </footer>
+                            
+                            </section>
+                            <footer class="modal-card-foot">
+                                <button type="button" class="button --jb-modal-close">Annulé</button>
+                                <button type="button" class="button blue --jb-modal-close">Confirmer</button>
+                            </footer>
                         </div>
                     </div>
                 </x-card-content>
@@ -749,8 +749,6 @@
                     var details = `<div id="article`+article_type+`-details-div" class="flex flex-col">
                                     <strong >` +article.titre + `</strong>
                                     <span class="text-sm font-semibold">`+article.description+`</span>
-                                    <span class="text-sm font-semibold">`+article.price+`</span>
-                                    <span class="text-sm font-semibold">`+article.quantity+`</span>
                         </div>`;
 
                     $(details).appendTo("#"+article_type+"articles-infos-div");

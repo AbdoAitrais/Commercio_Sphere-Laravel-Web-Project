@@ -710,8 +710,6 @@
                     var details = `<div id="article`+article_type+`-details-div" class="flex flex-col">
                                     <strong >` +article.titre + `</strong>
                                     <span class="text-sm font-semibold">`+article.description+`</span>
-                                    <span class="text-sm font-semibold">`+article.price+`</span>
-                                    <span class="text-sm font-semibold">`+article.quantity+`</span>
                         </div>`;
 
                     $(details).appendTo("#"+article_type+"articles-infos-div");
